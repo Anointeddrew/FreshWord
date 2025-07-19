@@ -1,0 +1,99 @@
+import React, { useEffect, useState } from 'react';
+import { db } from '../../firebaseconfig';
+import { collection, addDoc, getDocs, query, where, orderBy, Timestamp } from 'firebase/firestore';
+
+function AdminMessaging() {
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  const [receiver, setReceiver] = useState('all');
+  const [members, setMembers] = useState([]);
+  const [sentMessages, setSentMessages] = useState([]);
+
+  useEffect(() => {
+    const fetchMembers = async () => {
+      const q = query(collection(db, 'users'), where('role', '==', 'member'));
+      const snap = await getDocs(q);
+      const list = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setMembers(list);
+    };
+
+    const fetchMessages = async () => {
+      const q = query(collection(db, 'messages'), orderBy('sentAt', 'desc'));
+      const snap = await getDocs(q);
+      const msgs = snap.docs.map(doc => doc.data());
+      setSentMessages(msgs);
+    };
+
+    fetchMembers();
+    fetchMessages();
+  }, []);
+
+  const handleSend = async (e) => {
+    e.preventDefault();
+    if (!title || !content) return alert('Please fill in all fields.');
+
+    await addDoc(collection(db, 'messages'), {
+      title,
+      content,
+      receiver,
+      sentAt: Timestamp.now()
+    });
+
+    alert('Message sent!');
+    setTitle('');
+    setContent('');
+    setReceiver('all');
+  };
+
+  return (
+    <div className="p-6">
+      <h1 className="text-2xl font-bold mb-4">Send Message</h1>
+
+      <form onSubmit={handleSend} className="bg-white p-4 rounded shadow space-y-4 max-w-xl">
+        <input
+          type="text"
+          placeholder="Message Title"
+          className="input"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+        <textarea
+          rows="4"
+          placeholder="Message Content"
+          className="input"
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+        />
+
+        <div>
+          <label className="block font-semibold mb-1">Send To</label>
+          <select value={receiver} onChange={(e) => setReceiver(e.target.value)} className="input">
+            <option value="all">All Members</option>
+            {members.map(m => (
+              <option key={m.id} value={m.id}>{m.fullName}</option>
+            ))}
+          </select>
+        </div>
+
+        <button type="submit" className="btn w-full">Send Message</button>
+      </form>
+
+      <div className="mt-8">
+        <h2 className="text-xl font-bold mb-4">Recent Messages</h2>
+        <div className="space-y-4">
+          {sentMessages.map((msg, i) => (
+            <div key={i} className="bg-white p-4 rounded shadow">
+              <h3 className="font-bold">{msg.title}</h3>
+              <p>{msg.content}</p>
+              <p className="text-sm text-gray-500 mt-2">
+                Sent to: {msg.receiver === 'all' ? 'All Members' : msg.receiver} • {msg.sentAt?.toDate().toLocaleString()}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default AdminMessaging;
