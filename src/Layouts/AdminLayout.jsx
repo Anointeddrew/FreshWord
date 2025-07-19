@@ -10,7 +10,8 @@ const navItems = [
   { label: 'Giving', path: '/admin/giving' },
   { label: 'Messaging', path: '/admin/messaging' },
   { label: 'Announcements', path: '/admin/announcements' },
-  { label: 'Events', path: '/admin/events' }
+  { label: 'Events', path: '/admin/events' },
+  { label: 'Suggestions', path: '/admin/suggestion' }
 ];
 
 const AdminLayout = () => {

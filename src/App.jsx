@@ -10,6 +10,7 @@ import AdminGiving from './pages/Admin/Giving';
 import AdminMessaging from './pages/Admin/Messaging';
 import AdminAnnouncement from './pages/Admin/Announcements';
 import AdminEvents from './pages/Admin/Events';
+import AdminSuggestions from './pages/Admin/Suggestions';
 import MemberLayout from './Layouts/MemberLayout';
 import MemberDashboard from './pages/Member/Dashboard';
 import MemberProfile from './pages/Member/Profile';
@@ -41,6 +42,7 @@ function App() {
             <Route path="messaging" element={<AdminMessaging />} />
             <Route path="announcements" element={<AdminAnnouncement />} />
             <Route path="events" element={<AdminEvents />} />
+            <Route path="suggestion" element={<AdminSuggestions />} />
           </Route>
 
           {/* Member Protected Routes */}
