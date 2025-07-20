@@ -9,6 +9,7 @@ function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -64,7 +65,6 @@ function Register() {
         <form onSubmit={handleRegister} className="bg-white p-6 rounded shadow-md w-full max-w-md">
           <h2 className="text-2xl text-center font-bold mb-4">Register</h2>
 
-          {/* Error message display */}
           {error && (
             <p className="text-red-600 text-sm text-center mb-3">{error}</p>
           )}
@@ -74,34 +74,51 @@ function Register() {
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="input mb-3 w-full"
+            className="input px-4 py-2 bg-gray-100 rounded-md mb-3 w-full"
             required
           />
 
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="input mb-1 w-full"
-            required
-          />
+          <div className="relative mb-3">
+            <input
+              type={showPassword ? 'text' : 'password'}
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="input px-4 py-2 bg-gray-100 rounded-md w-full"
+              required
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(prev => !prev)}
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-sm text-gray-600"
+            >
+              {showPassword ? 'Hide' : 'Show'}
+            </button>
+          </div>
 
-          {/* Password strength feedback */}
           {password && (
             <p className={`text-sm mb-2 ${passwordStrength.color}`}>
               Password Strength: {passwordStrength.label}
             </p>
           )}
 
-          <input
-            type="password"
-            placeholder="Confirm Password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            className="input mb-4 w-full"
-            required
-          />
+          <div className="relative mb-4">
+            <input
+              type={showPassword ? 'text' : 'password'}
+              placeholder="Confirm Password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              className="input px-4 py-2 bg-gray-100 rounded-md w-full"
+              required
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(prev => !prev)}
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-sm text-gray-600"
+            >
+              {showPassword ? 'Hide' : 'Show'}
+            </button>
+          </div>
 
           <button
             type="submit"

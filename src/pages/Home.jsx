@@ -7,8 +7,9 @@ export default function Home() {
     <div>
       <Navbar />
     <div className="min-h-screen flex flex-col items-center justify-center text-center bg-gray-100 p-6">
-      <h1 className="text-4xl font-bold mb-4">Welcome to Fresh Word Bible Church</h1>
-      <p className="mb-6 text-lg text-gray-700">Raising a people of understanding</p>
+      <h1 className="text-4xl font-bold mb-4">THE MASTER'S MINISTRIES INTERNATIONAL</h1>
+      <h2 className="text-2xl bg-green-600 rounded p-2 font-semibold mb-2">A.K.A FRESH WORD BIBLE CHURCH</h2>
+      <p className="mb-6 text-lg text-gray-900">"...Raising a people of understanding"</p>
       <div className="space-x-4 w-full px-4">
         <Link to="/register" className="block w-full text-center bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Register</Link>
       </div>

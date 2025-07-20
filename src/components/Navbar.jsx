@@ -2,6 +2,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { auth } from '../firebaseconfig';
+import { Book } from 'lucide-react';
 
 function Navbar() {
   const { currentUser, role } = useAuth();
@@ -13,8 +14,8 @@ function Navbar() {
   };
 
   return (
-    <nav className="bg-green-800 shadow-md px-6 py-4 flex justify-between items-center">
-      <Link to="/" className="text-xl font-bold text-white">FreshWordChurchApp</Link>
+    <nav className="bg-green-800 shadow-md  px-4 py-4 flex text-lg justify-between items-center text-white">
+      <Link to="/" className="text-xl font-bold text-white hover:text-black">FreshWordApp</Link>
 
       <div className="space-x-4">
         {!currentUser && (
