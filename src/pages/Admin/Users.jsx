@@ -63,20 +63,20 @@ function Users() {
 
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">User Management</h1>
+    <div className="p-6 bg-white rounded shadow-md">
+      <h1 className="text-2xl text-center bg-green-700 rounded text-white py-2 font-bold mb-4">User Management</h1>
 
       <input
         type="text"
         value={search}
         onChange={handleSearch}
         placeholder="Search by name or department"
-        className="input mb-4 w-full max-w-md"
+        className="input mb-4 p-3 bg-green-200 border border-green-300 w-full"
       />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ">
         {filtered.map(user => (
-          <div key={user.id} className="bg-white p-4 shadow rounded">
+          <div key={user.id} className="bg-green-200 p-4 shadow rounded">
             <h2 className="text-lg font-bold">{user.fullName || 'Unnamed'}</h2>
             <p><strong>Phone:</strong> {user.phone || 'N/A'}</p>
             <p><strong>DOB:</strong> {user.dob || 'N/A'}</p>
@@ -85,7 +85,7 @@ function Users() {
             <p><strong>Department:</strong> {user.department || 'N/A'}</p>
             <p><strong>Role:</strong> {user.role || 'member'}</p>
 
-            <div className="flex gap-2 mt-2">
+            <div className="flex text-green-700 gap-2 mt-2">
               <select
                 value={user.role || 'member'}
                 onChange={(e) => handleRoleChange(user.id, e.target.value)}
@@ -96,7 +96,7 @@ function Users() {
             </select>
             <button
               onClick={() => handleDelete(user.id)}
-              className="mt-2 border px-2 py-1 rounded"
+              className="mt-2 border text-white bg-green-800 px-2 py-1 hover:bg-red-700"
             >
               Delete
             </button>

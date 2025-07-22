@@ -158,7 +158,7 @@ function AdminEvents() {
           }
           className="input w-full rounded p-2"
         >
-          <option value="all">All</option>
+           <option value="all">All Members</option>
           <option value="choir">Choir</option>
           <option value="media">Media</option>
           <option value="ushering">Ushering</option>

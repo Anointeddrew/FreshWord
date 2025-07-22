@@ -85,30 +85,30 @@ function AdminSuggestions() {
   };
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Member Suggestions</h1>
+    <div className="p-6 bg-white rounded shadow-md">
+      <h1 className="text-2xl text-center bg-green-700 rounded text-white py-2 font-bold mb-4">Member Suggestions</h1>
       {suggestions.length === 0 ? (
         <p>No suggestions submitted yet.</p>
       ) : (
         <ul className="space-y-6">
           {suggestions.map(s => (
-            <li key={s.id} className="bg-white shadow p-4 rounded">
+            <li key={s.id} className="bg-green-200 shadow p-4 rounded">
               <p className="text-sm text-gray-500">
                 {new Date(s.timestamp.seconds * 1000).toLocaleString()}
               </p>
-              <h2 className="font-semibold">{s.name || 'Unnamed Member'}</h2>
+              <h2 className="font-bold">{s.name || 'Unnamed Member'}</h2>
               <p className="mb-2">{s.message}</p>
 
               {/* Existing reply display (if any) */}
               {s.reply && (
-                <p className="text-green-700 bg-green-100 p-2 rounded mb-2">
+                <p className="text-green-700 bg-white p-2 rounded mb-2">
                   <strong>Reply:</strong> {s.reply}
                 </p>
               )}
 
               {/* Reply button */}
               <button
-                className="px-3 py-1 bg-gray-300 rounded hover:bg-gray-400 mb-2"
+                className="px-3 py-1 bg-green-700 rounded hover:bg-gray-400 mb-2"
                 onClick={() => toggleReplyBox(s.id)}
               >
                 {replyBoxesOpen[s.id] ? 'Cancel Reply' : 'Reply'}

@@ -32,8 +32,8 @@ function AdminSettings() {
   };
 
   return (
-    <div className="p-6 max-w-md">
-      <h2 className="text-xl font-bold mb-4">Church Account Settings</h2>
+    <div className="p-6 max-w-md mx-auto bg-white rounded shadow-md">
+      <h2 className="text-xl font-bold text-center bg-green-700 rounded text-white py-2 mb-4">Church Account Settings</h2>
 
       <input
         value={accountName}
@@ -61,7 +61,7 @@ function AdminSettings() {
 
       <button
         onClick={saveSettings}
-        className="btn bg-blue-600 text-white w-full"
+        className="btn bg-green-700 text-white w-full hover:bg-green-600"
       >
         Save Account Info
       </button>

@@ -70,28 +70,28 @@ function AdminMessaging() {
   };
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Send Message</h1>
+    <div className="p-6 bg-white rounded shadow-md">
+      <h1 className="text-2xl font-bold text-center bg-green-700 rounded text-white py-2 mb-4">Send Message</h1>
 
-      <form onSubmit={handleSend} className="bg-white p-4 rounded shadow space-y-4 max-w-xl">
+      <form onSubmit={handleSend} className="bg-white p-4 rounded shadow space-y-4 max-w-xl mx-auto">
         <input
           type="text"
           placeholder="Message Title"
-          className="input"
+          className="input w-full rounded p-2 bg-green-200"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
         <textarea
           rows="4"
           placeholder="Message Content"
-          className="input"
+          className="input w-full rounded p-2 bg-green-200"
           value={content}
           onChange={(e) => setContent(e.target.value)}
         />
 
         <div>
           <label className="block font-semibold mb-1">Send To</label>
-          <select value={receiver} onChange={(e) => setReceiver(e.target.value)} className="input">
+          <select value={receiver} onChange={(e) => setReceiver(e.target.value)} className="input w-full rounded p-2 bg-green-200">
             <option value="all">All Members</option>
             {members.map(m => (
               <option key={m.id} value={m.id}>{m.fullName}</option>
@@ -99,14 +99,14 @@ function AdminMessaging() {
           </select>
         </div>
 
-        <button type="submit" className="btn w-full">Send Message</button>
+        <button type="submit" className="w-full bg-green-700 text-white py-2 rounded hover:bg-green-600">Send Message</button>
       </form>
 
       <div className="mt-8">
-        <h2 className="text-xl font-bold mb-4">Recent Messages</h2>
+        <h2 className="text-xl text-green-700 font-bold mb-4">Recent Messages</h2>
         <div className="space-y-4">
           {sentMessages.map((msg) => (
-            <div key={msg.id} className="bg-white p-4 rounded shadow">
+            <div key={msg.id} className="bg-green-200 p-4 rounded shadow">
               <h3 className="font-bold">{msg.title}</h3>
               <p>{msg.content}</p>
               <p className="text-sm text-gray-500 mt-2">

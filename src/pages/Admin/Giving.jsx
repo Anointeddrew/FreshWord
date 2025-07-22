@@ -32,17 +32,17 @@ function AdminGiving() {
 
   return (
     <div className="p-6 bg-white rounded shadow-md">
-      <h1 className="text-2xl font-bold mb-4">Giving Records</h1>
+      <h1 className="text-2xl text-center bg-green-700 rounded text-white py-2 font-bold mb-4">Giving Records</h1>
 
-      <div className="mb-4">
+      <div className="mb-4 text-center">
         <p className="text-lg">
           💰 <strong>Total Giving:</strong> ₦{total.toLocaleString()}
         </p>
       </div>
 
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto mb-4 rounded shadow">
         <table className="min-w-full bg-white shadow rounded">
-          <thead className="bg-gray-200">
+          <thead className="bg-green-200">
             <tr>
               <th className="p-2">#</th>
               <th className="p-2">Member Name</th>
