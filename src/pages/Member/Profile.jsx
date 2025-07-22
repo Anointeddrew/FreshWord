@@ -42,10 +42,10 @@ function Profile() {
           value={val}
           onChange={handleChange}
           placeholder={key}
-          className="w-full input"
+          className="w-full input p-2 border border-gray-300 rounded"
         />
       ))}
-      <button onClick={handleSave} className="btn w-full">Save</button>
+      <button onClick={handleSave} className="bg-green-700 py-2 px-4 rounded text-white mt-2 hover:bg-green-600">Save</button>
     </div>
   );
 }

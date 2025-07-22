@@ -77,9 +77,9 @@ function MemberSuggestions() {
   }, []);
 
   return (
-    <div className="p-6 max-w-2xl mx-auto">
-      <h1 className="text-xl font-bold mb-4">Send a Suggestion or Comment</h1>
-      <form onSubmit={handleSubmit} className="space-y-4 mb-8">
+    <div className="p-6 max-w-2xl mx-auto bg-white rounded shadow-md">
+      <h1 className="text-xl bg-green-700 rounded text-center text-white font-bold mb-4">Send a Suggestion or Comment</h1>
+      <form onSubmit={handleSubmit} className="space-y-4 mb-8 bg-gray-50 p-2 rounded shadow">
         <textarea
           rows="4"
           className="w-full p-2 border rounded"
@@ -90,7 +90,7 @@ function MemberSuggestions() {
         <button
           type="submit"
           disabled={submitting}
-          className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
+          className="bg-green-700 text-white py-2 px-4 rounded hover:bg-green-600"
         >
           {submitting ? 'Sending...' : 'Send Suggestion'}
         </button>

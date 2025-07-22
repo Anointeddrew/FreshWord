@@ -34,15 +34,15 @@ function Giving() {
   useEffect(() => { fetchGiving(); fetchAccountInfo(); }, []);
 
   return (
-    <div className="p-4">
-      <h2 className="text-xl font-bold mb-2">Giving</h2>
+    <div className="p-6 bg-white rounded shadow-md">
+      <h2 className="text-xl text-center text-white bg-green-700 rounded font-bold mb-2">Giving</h2>
 
       {accountInfo.accountNumber && (
-        <div className="mb-4 p-3 bg-green-50 border-1-4 border-green-500">
+        <div className="mb-4 p-4 bg-green-200 border-1-4 border-green-500">
           <p><strong>Bank Name:</strong> {accountInfo.bankName}</p>
           <p><strong>Account Number:</strong> {accountInfo.accountNumber}</p>
           <p><strong>Account Name:</strong> {accountInfo.accountName || 'Fresh Word Bible Church'}</p>
-          <p className="text-sm text-gray-600">Please use these details for your giving.</p>
+          <p className="text-md text-black bg-white rounded text-center mt-4">Please use these details for your giving.</p>
         </div>
       )}
 
@@ -51,9 +51,9 @@ function Giving() {
         onChange={(e) => setAmount(e.target.value)}
         type="number"
         placeholder="Enter amount"
-        className="input"
+        className="input bg-gray-100 border border-gray-300 rounded p-2 w-full"
       />
-      <button onClick={submitGiving} className="btn mt-2">Submit</button>
+      <button onClick={submitGiving} className="bg-green-700 py-2 px-4 rounded mt-2 hover:bg-green-600">Submit</button>
       <ul className="mt-4">
         {history.map((g, i) => (
           <li key={i}>₦{g.amount} - {g.date.toDate().toDateString()}</li>

@@ -93,15 +93,15 @@ function MemberDashboard() {
   }, []);
 
   return (
-    <div className="p-6 max-w-4xl mx-auto relative">
-      {/* Notification Popup */}
+    <div className="p-4 max-w-4xl mx-auto relative">
+      {/* Popup Notification */}
       {showNotification && (
         <div className="fixed top-6 right-6 bg-green-600 text-white px-6 py-3 rounded shadow-lg z-50 animate-bounce transition-opacity duration-500">
           📢 <strong>{newAnnouncementTitle}</strong> just arrived!
         </div>
       )}
 
-      <h1 className="text-2xl font-bold mb-4">Welcome, {fullName || 'Member'} 👋</h1>
+      <h1 className="text-2xl text-green-700 font-bold mb-4">Welcome, {fullName || 'Member'} 👋</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="bg-white p-4 shadow rounded-lg">
@@ -123,11 +123,11 @@ function MemberDashboard() {
 
       {/* Upcoming Events */}
       {events.length > 0 && (
-        <div className="mt-8">
-          <h2 className="text-xl font-semibold mb-4">Upcoming Events</h2>
+        <div className="mt-10">
+          <h2 className="text-xl text-green-700 font-bold mb-4">Upcoming Events</h2>
           <ul className="space-y-2">
             {events.map((event, index) => (
-              <li key={index} className="bg-gray-100 p-4 rounded shadow-sm">
+              <li key={index} className="bg-white p-4 rounded shadow-sm">
                 <p className="font-bold">{event.title}</p>
                 <p className="text-sm text-gray-700">{event.date?.toDate?.().toLocaleDateString()}</p>
                 {event.description && <p className="text-sm mt-1">{event.description}</p>}
@@ -139,7 +139,7 @@ function MemberDashboard() {
 
       {/* Announcements */}
       <div className="mt-10">
-        <h2 className="text-xl font-semibold mb-4">Announcements for {department || 'your department'}</h2>
+        <h2 className="text-xl text-green-700 font-bold mb-4">Announcements for {department || 'your department'}</h2>
         {loadingAnnouncements ? (
           <p>Loading announcements...</p>
         ) : announcements.length === 0 ? (
@@ -148,7 +148,7 @@ function MemberDashboard() {
           <div className="space-y-4">
             {announcements.map((a) => (
               <div key={a.id} className="bg-white p-4 rounded shadow">
-                <h3 className="font-semibold text-lg">{a.title}</h3>
+                <h3 className="font-bold text-lg">{a.title}</h3>
                 <p className="mt-1">{a.content}</p>
                 {a.link && (
                   <p className="mt-1 text-blue-600 underline">
@@ -165,10 +165,10 @@ function MemberDashboard() {
       </div>
 
       {/* Action Buttons */}
-      <div className="mt-8 space-x-4">
-        <Link to="/member/messages" className="btn">Messages</Link>
-        <Link to="/member/profile" className="btn">My Profile</Link>
-        <Link to="/member/giving" className="btn">Give Now</Link>
+      <div className="mt-8 space-x-10">
+        <Link to="/member/messages" className="text-white text-md py-2 px-6 bg-green-700 rounded hover:bg-green-600">Messages</Link>
+        <Link to="/member/profile" className="text-white text-md py-2 px-6 bg-green-700 rounded hover:bg-green-600">My Profile</Link>
+        <Link to="/member/giving" className="text-white text-md py-2 px-6 bg-green-700 rounded hover:bg-green-600">Give Now</Link>
       </div>
     </div>
   );

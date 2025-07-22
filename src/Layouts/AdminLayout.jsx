@@ -25,7 +25,7 @@ const AdminLayout = () => {
 
   return (
     <div className="flex min-h-screen bg-gray-100">
-      <aside className="w-64 bg-white shadow-md p-4 hidden md:block">
+      <aside className="w-50 bg-green-700 shadow-md p-4 md:block">
         <h2 className="text-xl font-bold mb-6">Admin Panel</h2>
         <nav className="space-y-3">
           {navItems.map(item => (
@@ -33,7 +33,7 @@ const AdminLayout = () => {
               key={item.path}
               to={item.path}
               className={`block px-4 py-2 rounded ${
-                location.pathname === item.path ? 'bg-blue-500 text-white' : 'hover:bg-blue-100'
+                location.pathname === item.path ? 'bg-green-500 text-white' : 'hover:bg-blue-100'
               }`}
             >
               {item.label}

@@ -81,33 +81,33 @@ function AdminAnnouncement() {
   };
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">{editId ? 'Edit Announcement' : 'Create Announcement'}</h1>
+    <div className="p-2 max-w-2xl mx-auto bg-white rounded shadow-md">
+      <h1 className="text-2xl text-center bg-green-700 rounded text-white font-bold mb-4">{editId ? 'Edit Announcement' : 'Create Announcement'}</h1>
 
-      <form onSubmit={handleSubmit} className="bg-white p-4 rounded shadow max-w-xl space-y-4">
+      <form onSubmit={handleSubmit} className="bg-green-200 p-4 rounded shadow max-w-xl space-y-4">
         <input
           type="text"
           placeholder="Title"
-          className="input"
+          className="input bg-white border border-gray-300 rounded p-2 w-full"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
         <textarea
           rows="4"
           placeholder="Content"
-          className="input"
+          className="input bg-white border border-gray-300 rounded p-2 w-full"
           value={content}
           onChange={(e) => setContent(e.target.value)}
         />
         <input
           type="text"
           placeholder="Attachment Link (optional)"
-          className="input"
+          className="input bg-white border border-gray-300 rounded p-2 w-full"
           value={link}
           onChange={(e) => setLink(e.target.value)}
         />
         <select
-          className="input"
+          className="input bg-white border border-gray-300 rounded p-2 w-full"
           value={department}
           onChange={(e) => setDepartment(e.target.value)}
         >
@@ -116,13 +116,13 @@ function AdminAnnouncement() {
           ))}
         </select>
 
-        <button type="submit" className="btn w-full bg-green-600 text-white py-2 rounded hover:bg-green-700">
+        <button type="submit" className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700">
           {editId ? 'Update Announcement' : 'Post Announcement'}
         </button>
       </form>
 
       <div className="mt-10">
-        <h2 className="text-xl font-bold mb-4">Recent Announcements</h2>
+        <h2 className="text-xl  font-bold mb-4">Recent Announcements</h2>
         <div className="space-y-4">
           {announcements.map((a) => (
             <div key={a.id} className="bg-white p-4 rounded shadow relative">
