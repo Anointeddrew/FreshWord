@@ -107,12 +107,14 @@ function AdminSuggestions() {
               )}
 
               {/* Reply button */}
+              <div className="flex flex-col">
               <button
-                className="px-3 py-1 bg-green-700 rounded hover:bg-gray-400 mb-2"
+                className="px-3 py-1 text-white mt-2 bg-green-700 rounded hover:bg-green-600 mb-2"
                 onClick={() => toggleReplyBox(s.id)}
               >
                 {replyBoxesOpen[s.id] ? 'Cancel Reply' : 'Reply'}
               </button>
+              
 
               {/* Conditionally render reply input and save button */}
               {replyBoxesOpen[s.id] && (
@@ -125,20 +127,23 @@ function AdminSuggestions() {
                     onChange={(e) => handleReplyChange(s.id, e.target.value)}
                   />
                   <button
-                    className="px-4 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 mr-3"
+                    className="px-3 py-1 mb-2 bg-green-700 text-white w-full rounded hover:bg-green-600 mr-3"
                     onClick={() => handleSaveReply(s.id)}
                   >
                     Save Reply
                   </button>
                 </>
               )}
+              </div>
 
+              <div className="flex flex-col">
               <button
                 className="px-4 py-1 bg-red-500 text-white rounded hover:bg-red-600"
                 onClick={() => handleDelete(s.id)}
               >
                 Delete
               </button>
+              </div>
             </li>
           ))}
         </ul>
