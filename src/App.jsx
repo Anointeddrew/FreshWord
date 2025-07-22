@@ -11,6 +11,7 @@ import AdminMessaging from './pages/Admin/Messaging';
 import AdminAnnouncement from './pages/Admin/Announcements';
 import AdminEvents from './pages/Admin/Events';
 import AdminSuggestions from './pages/Admin/Suggestions';
+import AdminSettings from './pages/Admin/Settings';
 import MemberLayout from './Layouts/MemberLayout';
 import MemberDashboard from './pages/Member/Dashboard';
 import MemberProfile from './pages/Member/Profile';
@@ -43,6 +44,7 @@ function App() {
             <Route path="announcements" element={<AdminAnnouncement />} />
             <Route path="events" element={<AdminEvents />} />
             <Route path="suggestion" element={<AdminSuggestions />} />
+            <Route path="settings" element={<AdminSettings />} />
           </Route>
 
           {/* Member Protected Routes */}

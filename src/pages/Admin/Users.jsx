@@ -4,6 +4,7 @@ import {
   collection,
   getDocs,
   updateDoc,
+  deleteDoc,
   doc,
   query,
   orderBy
@@ -46,6 +47,21 @@ function Users() {
     );
   };
 
+  const handleDelete = async (userId) => {
+  const confirmDelete = window.confirm('Are you sure you want to delete this user?');
+  if (!confirmDelete) return;
+
+  try {
+    await deleteDoc(doc(db, 'users', userId));
+    setUsers(prev => prev.filter(u => u.id !== userId));
+    setFiltered(prev => prev.filter(u => u.id !== userId));
+  } catch (error) {
+    console.error('Error deleting user:', error);
+    alert('Failed to delete user. Check console for details.');
+  }
+};
+
+
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">User Management</h1>
@@ -69,15 +85,23 @@ function Users() {
             <p><strong>Department:</strong> {user.department || 'N/A'}</p>
             <p><strong>Role:</strong> {user.role || 'member'}</p>
 
-            <select
-              value={user.role || 'member'}
-              onChange={(e) => handleRoleChange(user.id, e.target.value)}
-              className="mt-2 border px-2 py-1 rounded"
-            >
-              <option value="member">Member</option>
+            <div className="flex gap-2 mt-2">
+              <select
+                value={user.role || 'member'}
+                onChange={(e) => handleRoleChange(user.id, e.target.value)}
+                className="mt-2 border px-2 py-1 rounded"
+              >
+                <option value="member">Member</option>
               <option value="admin">Admin</option>
             </select>
+            <button
+              onClick={() => handleDelete(user.id)}
+              className="mt-2 border px-2 py-1 rounded"
+            >
+              Delete
+            </button>
           </div>
+        </div>
         ))}
       </div>
     </div>

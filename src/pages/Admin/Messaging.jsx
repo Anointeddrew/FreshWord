@@ -1,6 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { db } from '../../firebaseconfig';
-import { collection, addDoc, getDocs, query, where, orderBy, Timestamp } from 'firebase/firestore';
+import {
+  collection,
+  addDoc,
+  getDocs,
+  deleteDoc,
+  doc,
+  query,
+  where,
+  orderBy,
+  Timestamp,
+} from 'firebase/firestore';
 
 function AdminMessaging() {
   const [title, setTitle] = useState('');
@@ -20,7 +30,7 @@ function AdminMessaging() {
     const fetchMessages = async () => {
       const q = query(collection(db, 'messages'), orderBy('sentAt', 'desc'));
       const snap = await getDocs(q);
-      const msgs = snap.docs.map(doc => doc.data());
+      const msgs = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       setSentMessages(msgs);
     };
 
@@ -36,13 +46,27 @@ function AdminMessaging() {
       title,
       content,
       receiver,
-      sentAt: Timestamp.now()
+      sentAt: Timestamp.now(),
     });
 
     alert('Message sent!');
     setTitle('');
     setContent('');
     setReceiver('all');
+
+    // Refresh messages
+    const snap = await getDocs(query(collection(db, 'messages'), orderBy('sentAt', 'desc')));
+    const msgs = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    setSentMessages(msgs);
+  };
+
+  const handleDelete = async (id) => {
+    const confirm = window.confirm('Are you sure you want to delete this message?');
+    if (!confirm) return;
+
+    await deleteDoc(doc(db, 'messages', id));
+    setSentMessages(prev => prev.filter(msg => msg.id !== id));
+    alert('Message deleted.');
   };
 
   return (
@@ -81,13 +105,20 @@ function AdminMessaging() {
       <div className="mt-8">
         <h2 className="text-xl font-bold mb-4">Recent Messages</h2>
         <div className="space-y-4">
-          {sentMessages.map((msg, i) => (
-            <div key={i} className="bg-white p-4 rounded shadow">
+          {sentMessages.map((msg) => (
+            <div key={msg.id} className="bg-white p-4 rounded shadow">
               <h3 className="font-bold">{msg.title}</h3>
               <p>{msg.content}</p>
               <p className="text-sm text-gray-500 mt-2">
-                Sent to: {msg.receiver === 'all' ? 'All Members' : msg.receiver} • {msg.sentAt?.toDate().toLocaleString()}
+                Sent to: {msg.receiver === 'all' ? 'All Members' : msg.receiver} •{' '}
+                {msg.sentAt?.toDate().toLocaleString()}
               </p>
+              <button
+                onClick={() => handleDelete(msg.id)}
+                className="text-red-600 text-sm mt-2 hover:underline"
+              >
+                Delete
+              </button>
             </div>
           ))}
         </div>

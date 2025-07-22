@@ -6,7 +6,8 @@ export default function Home() {
   return (
     <div>
       <Navbar />
-    <div className="min-h-screen flex flex-col items-center justify-center text-center bg-gray-100 p-6">
+    <div className="min-h-screen flex flex-col items-center justify-center text-center bg-white p-4">
+      <img src="freshwordlogo.jpg" alt="Fresh Word Logo" className="mb-4 w-25 h-25 object-contain" />
       <h1 className="text-4xl font-bold mb-4">THE MASTER'S MINISTRIES INTERNATIONAL</h1>
       <h2 className="text-2xl bg-green-600 rounded p-2 font-semibold mb-2">A.K.A FRESH WORD BIBLE CHURCH</h2>
       <p className="mb-6 text-lg text-gray-900">"...Raising a people of understanding"</p>

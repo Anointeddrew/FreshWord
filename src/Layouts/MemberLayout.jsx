@@ -24,15 +24,15 @@ const MemberLayout = () => {
     <div className="min-h-screen bg-gray-100">
       <div className="flex">
         {/* Sidebar */}
-        <aside className="w-64 bg-white shadow-md p-4 hidden md:block">
+        <aside className="w-50 bg-green-700 shadow-md p-4 md:block">
           <h2 className="text-xl font-bold mb-6">Esteemed Member</h2>
-          <nav className="space-y-3">
+          <nav className="space-y-4">
             {navItems.map(item => (
             <Link
               key={item.path}
               to={item.path}
               className={`block px-4 py-2 rounded ${
-                location.pathname === item.path ? 'bg-blue-500 text-white' : 'hover:bg-blue-100'
+                location.pathname === item.path ? 'bg-green-500 text-white' : 'hover:bg-white'
               }`}
             >
               {item.label}
