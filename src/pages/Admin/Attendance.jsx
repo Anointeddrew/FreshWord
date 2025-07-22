@@ -28,13 +28,13 @@ function AttendanceAdmin() {
   }, []);
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Recent Attendance</h1>
+    <div className="p-6 max-w-2xl mx-auto bg-white rounded shadow-md">
+      <h1 className="text-2xl text-center bg-green-700 rounded text-white font-bold mb-4">Recent Attendance</h1>
 
-      <div className="overflow-x-auto">
-        <table className="min-w-full bg-white rounded shadow">
+      <div className="overflow-x-auto mb-3  rounded shadow">
+        <table className="min-w-full bg-gray-200 rounded shadow">
           <thead>
-            <tr className="bg-gray-200 text-left">
+            <tr className="bg-green-200 text-left">
               <th className="p-2">#</th>
               <th className="p-2">Member Name</th>
               <th className="p-2">Date</th>

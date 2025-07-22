@@ -31,7 +31,7 @@ function AdminGiving() {
   const total = records.reduce((sum, rec) => sum + (rec.amount || 0), 0);
 
   return (
-    <div className="p-6">
+    <div className="p-6 bg-white rounded shadow-md">
       <h1 className="text-2xl font-bold mb-4">Giving Records</h1>
 
       <div className="mb-4">

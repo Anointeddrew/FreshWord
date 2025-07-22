@@ -122,10 +122,10 @@ function AdminAnnouncement() {
       </form>
 
       <div className="mt-10">
-        <h2 className="text-xl  font-bold mb-4">Recent Announcements</h2>
+        <h2 className="text-xl text-green-700 text-center font-bold mb-4">Recent Announcements</h2>
         <div className="space-y-4">
           {announcements.map((a) => (
-            <div key={a.id} className="bg-white p-4 rounded shadow relative">
+            <div key={a.id} className="bg-green-200 p-4 rounded shadow relative">
               <h3 className="font-bold">{a.title}</h3>
               <p>{a.content}</p>
               {a.link && (

@@ -116,34 +116,34 @@ function AdminEvents() {
   };
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">{editingId ? 'Edit Event' : 'Create Event'}</h1>
+    <div className="p-6 max-w-2xl mx-auto bg-white rounded shadow-md">
+      <h1 className="text-2xl text-center bg-green-700 rounded text-white font-bold mb-4">{editingId ? 'Edit Event' : 'Create Event'}</h1>
 
-      <form onSubmit={handleSubmit} className="space-y-4 max-w-xl bg-white p-4 rounded shadow">
+      <form onSubmit={handleSubmit} className="space-y-4 max-w-xl bg-green-200 p-4 rounded shadow">
         <input
           type="text"
           placeholder="Event Title"
-          className="input w-full"
+          className="input w-full rounded p-2"
           value={formData.title}
           onChange={(e) => setFormData({ ...formData, title: e.target.value })}
         />
         <input
           type="date"
-          className="input w-full"
+          className="input w-full rounded p-2"
           value={formData.date}
           onChange={(e) => setFormData({ ...formData, date: e.target.value })}
         />
         <input
           type="text"
           placeholder="Location"
-          className="input w-full"
+          className="input w-full rounded p-2"
           value={formData.location}
           onChange={(e) => setFormData({ ...formData, location: e.target.value })}
         />
         <textarea
           rows="3"
           placeholder="Description"
-          className="input w-full"
+          className="input w-full rounded p-2"
           value={formData.description}
           onChange={(e) => setFormData({ ...formData, description: e.target.value })}
         />
@@ -156,7 +156,7 @@ function AdminEvents() {
               departments: Array.from(e.target.selectedOptions, (opt) => opt.value),
             })
           }
-          className="input w-full"
+          className="input w-full rounded p-2"
         >
           <option value="all">All</option>
           <option value="choir">Choir</option>
@@ -165,16 +165,16 @@ function AdminEvents() {
           <option value="follow-up">Follow-up</option>
         </select>
 
-        <button type="submit" className="btn w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+        <button type="submit" className="w-full bg-green-700 text-white py-2 rounded hover:bg-green-600">
           {editingId ? 'Update' : 'Create'} Event
         </button>
       </form>
 
       <div className="mt-10">
-        <h2 className="text-xl font-bold mb-4">Upcoming Events</h2>
+        <h2 className="text-xl text-green-700 font-bold mb-4">Upcoming Events</h2>
         <div className="space-y-4">
           {events.map((event) => (
-            <div key={event.id} className="bg-white p-4 rounded shadow">
+            <div key={event.id} className="bg-green-200 font-semibold p-4 rounded shadow">
               <h3 className="text-lg font-semibold">{event.title}</h3>
               <p className="text-sm text-gray-700">{event.description}</p>
               <p className="text-sm text-gray-500 mt-1">
