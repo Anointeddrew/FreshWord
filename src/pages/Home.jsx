@@ -14,7 +14,7 @@ export default function Home() {
       <div className="space-x-4 w-full px-4">
         <Link to="/register" className="block w-full text-center bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Register</Link>
       </div>
-      <div className="mt-8 w-full px-4">
+      <div className="mt-2 w-full px-4">
         <Link to="/login" className="block w-full text-center bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Sign in</Link>
       </div>
     </div>
