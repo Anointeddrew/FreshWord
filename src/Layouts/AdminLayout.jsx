@@ -24,8 +24,8 @@ const AdminLayout = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
-      <aside className="w-50 bg-green-700 shadow-md p-4 md:block">
+    <div className="min-h-screen w-screen bg-gray-100">
+      <aside className="w-50 bg-green-700 hidden shadow-md p-4 md:block">
         <h2 className="text-xl font-bold mb-6">Admin Panel</h2>
         <nav className="space-y-3">
           {navItems.map(item => (

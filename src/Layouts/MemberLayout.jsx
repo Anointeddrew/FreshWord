@@ -24,7 +24,7 @@ const MemberLayout = () => {
     <div className="min-h-screen bg-gray-100">
       <div className="flex">
         {/* Sidebar */}
-        <aside className="w-50 bg-green-700 shadow-md p-4 md:block">
+        <aside className="w-50 hidden bg-green-700 shadow-md p-4 md:block">
           <h2 className="text-xl font-bold mb-6">Esteemed Member</h2>
           <nav className="space-y-4">
             {navItems.map(item => (

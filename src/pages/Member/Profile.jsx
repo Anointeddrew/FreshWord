@@ -35,6 +35,7 @@ function Profile() {
 
   return (
     <div className="p-4 space-y-4 max-w-xl mx-auto">
+      <h1 className="bg-green-700 text-white p-2 text-center rounded font-bold mb-2">Kindly update your profile information</h1>
       {Object.entries(profile).map(([key, val]) => (
         <input
           key={key}
