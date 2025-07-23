@@ -66,7 +66,7 @@ function Login() {
   return (
     <div>
       <Navbar />
-      <div className="flex items-center justify-center h-screen bg-green-300">
+      <div className="flex items-center justify-center min-h-screen bg-green-300 p-4">
         <form onSubmit={handleLogin} className="bg-green-200 p-6 rounded shadow-md w-full max-w-sm">
           <h2 className="text-xl font-bold mb-4 text-center">Login</h2>
 
