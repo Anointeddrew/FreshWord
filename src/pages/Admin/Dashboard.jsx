@@ -57,9 +57,9 @@ function AdminDashboard() {
         </div>
       </div>
 
-      <div className="mt-10 mb-2 text-center space-x-10">
-        <Link to="/admin/messaging" className="bg-green-700 hover:bg-green-600 py-2 px-6 rounded text-white">Send Message</Link>
-        <Link to="/admin/users" className="bg-green-700 hover:bg-green-600 py-2 px-6 rounded text-white">View Members</Link>
+      <div className="mt-10 mb-2 text-center space-x-4">
+        <Link to="/admin/messaging" className="bg-green-700 hover:bg-green-600 py-2 px-2 rounded text-white">Send Message</Link>
+        <Link to="/admin/users" className="bg-green-700 hover:bg-green-600 py-2 px-2 rounded text-white">View Members</Link>
       </div>
     </div>
   );
