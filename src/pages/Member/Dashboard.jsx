@@ -93,7 +93,7 @@ function MemberDashboard() {
   }, []);
 
   return (
-    <div className="p-4 max-w-4xl mx-auto relative">
+    <div className="p-4 bg-white max-w-4xl mx-auto relative">
       {/* Popup Notification */}
       {showNotification && (
         <div className="fixed top-6 right-6 bg-green-600 text-white px-6 py-3 rounded shadow-lg z-50 animate-bounce transition-opacity duration-500">
@@ -101,21 +101,21 @@ function MemberDashboard() {
         </div>
       )}
 
-      <h1 className="text-2xl text-green-700 font-bold mb-4">Welcome, {fullName || 'Member'} 👋</h1>
+      <h1 className="text-2xl bg-green-700 text-white text-center rounded font-bold mb-4">Welcome, {fullName || 'Member'} 👋</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-white p-4 shadow rounded-lg">
-          <p className="text-gray-600">Profile Completion</p>
+        <div className="bg-green-200 p-4 shadow rounded-lg">
+          <p className="text-gray-600 font-bold">Profile Completion</p>
           <p className="text-xl font-bold">{profileCompletion}%</p>
           <Link to="/member/profile" className="text-blue-600 text-sm">Update Profile</Link>
         </div>
-        <div className="bg-white p-4 shadow rounded-lg">
-          <p className="text-gray-600">Attendance</p>
+        <div className="bg-green-200 p-4 shadow rounded-lg">
+          <p className="text-gray-600 font-bold">Attendance</p>
           <p className="text-xl font-bold">{attendanceCount}</p>
           <Link to="/member/attendance" className="text-blue-600 text-sm">View Attendance</Link>
         </div>
-        <div className="bg-white p-4 shadow rounded-lg">
-          <p className="text-gray-600">Total Giving</p>
+        <div className="bg-green-200 p-4 shadow rounded-lg">
+          <p className="text-gray-600 font-bold">Total Giving</p>
           <p className="text-xl font-bold">₦{totalGiving.toLocaleString()}</p>
           <Link to="/member/giving" className="text-blue-600 text-sm">View Giving</Link>
         </div>
