@@ -74,7 +74,7 @@ const MemberLayout = () => {
             </Link>
           ))}
         </nav>
-        <button onClick={handleLogout} className="mt-6 text-red-300 hover:underline">Logout</button>
+        <button onClick={handleLogout} className="mt-6 text-red-400 hover:underline">Logout</button>
       </aside>
 
       {/* Main Content */}

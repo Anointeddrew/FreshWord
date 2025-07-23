@@ -124,7 +124,7 @@ function MemberDashboard() {
       {/* Upcoming Events */}
       {events.length > 0 && (
         <div className="mt-10">
-          <h2 className="text-xl text-green-700 font-bold mb-4">Upcoming Events</h2>
+          <h2 className="text-xl text-green-700 font-bold mb-4 text-center">Upcoming Events</h2>
           <ul className="space-y-2">
             {events.map((event, index) => (
               <li key={index} className="bg-white p-4 rounded shadow-sm">
@@ -139,7 +139,7 @@ function MemberDashboard() {
 
       {/* Announcements */}
       <div className="mt-10">
-        <h2 className="text-xl text-green-700 font-bold mb-4">Announcements for {department || 'your department'}</h2>
+        <h2 className="text-xl text-green-700 font-bold mb-4 text-center">Announcement for {department || 'your department'}</h2>
         {loadingAnnouncements ? (
           <p>Loading announcements...</p>
         ) : announcements.length === 0 ? (
@@ -147,7 +147,7 @@ function MemberDashboard() {
         ) : (
           <div className="space-y-4">
             {announcements.map((a) => (
-              <div key={a.id} className="bg-white p-4 rounded shadow">
+              <div key={a.id} className="bg-gray-100 rounded p-4 shadow">
                 <h3 className="font-bold text-lg">{a.title}</h3>
                 <p className="mt-1">{a.content}</p>
                 {a.link && (
@@ -165,10 +165,10 @@ function MemberDashboard() {
       </div>
 
       {/* Action Buttons */}
-      <div className="mt-8 space-x-10">
-        <Link to="/member/messages" className="text-white text-md py-2 px-6 bg-green-700 rounded hover:bg-green-600">Messages</Link>
-        <Link to="/member/profile" className="text-white text-md py-2 px-6 bg-green-700 rounded hover:bg-green-600">My Profile</Link>
-        <Link to="/member/giving" className="text-white text-md py-2 px-6 bg-green-700 rounded hover:bg-green-600">Give Now</Link>
+      <div className="mt-8 space-x-4">
+        <Link to="/member/messages" className="text-white text-md py-2 px-2 bg-green-700 rounded hover:bg-green-600">Messages</Link>
+        <Link to="/member/profile" className="text-white text-md py-2 px-2 bg-green-700 rounded hover:bg-green-600">My Profile</Link>
+        <Link to="/member/giving" className="text-white text-md py-2 px-2 bg-green-700 rounded hover:bg-green-600">Give Now</Link>
       </div>
     </div>
   );
