@@ -4,6 +4,9 @@ import App from './App';
 import './index.css'; // Tailwind base
 import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
+import { registerSW } from 'virtual:pwa-register';
+
+registerSW();
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
