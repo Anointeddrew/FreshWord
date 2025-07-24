@@ -7,10 +7,10 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.svg', 'favicon.ico', 'robots.txt', 'apple-touch-icon.png'],
+      includeAssets: ['favicon.svg', 'favicon.ico', 'robots.txt', 'apple-touch-icon.png', 'freshwordlogo.jpg'],
       manifest: {
         name: 'Church Management System',
-        short_name: 'ChMS',
+        short_name: 'FreshWord',
         description: 'A church management system for admins and members',
         theme_color: '#0f766e',
         background_color: '#ffffff',
@@ -18,19 +18,19 @@ export default defineConfig({
         start_url: '/',
         icons: [
           {
-            src: '/public/freshwordlogo.jpg',
+            src: '/freshwordlogo.jpg',
             sizes: '192x192',
-            type: 'image/jpg'
+            type: 'image/jpeg'
           },
           {
-            src: '/public/freshwordlogo.jpg',
+            src: '/freshwordlogo.jpg',
             sizes: '512x512',
-            type: 'image/jpg'
+            type: 'image/jpeg'
           },
           {
-            src: '/public/freshwordlogo.jpg',
+            src: '/freshwordlogo.jpg',
             sizes: '512x512',
-            type: 'image/jpg',
+            type: 'image/jpeg',
             purpose: 'any maskable'
           }
         ]
