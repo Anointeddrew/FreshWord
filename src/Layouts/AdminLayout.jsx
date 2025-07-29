@@ -13,6 +13,7 @@ const navItems = [
   { label: 'Events', path: '/admin/events' },
   { label: 'Suggestions', path: '/admin/suggestion' },
   { label: 'Settings', path: '/admin/settings' },
+  { label: 'Social Links', path: '/admin/social-links' },
 ];
 
 const AdminLayout = () => {

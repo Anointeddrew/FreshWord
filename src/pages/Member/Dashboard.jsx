@@ -11,6 +11,13 @@ import {
   onSnapshot
 } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
+import {
+  FaFacebook,
+  FaTelegram,
+  FaTwitter,
+  FaInstagram,
+  FaYoutube,
+} from 'react-icons/fa';
 
 function MemberDashboard() {
   const [fullName, setFullName] = useState('');
@@ -23,6 +30,15 @@ function MemberDashboard() {
   const [loadingAnnouncements, setLoadingAnnouncements] = useState(true);
   const [showNotification, setShowNotification] = useState(false);
   const [newAnnouncementTitle, setNewAnnouncementTitle] = useState('');
+
+  // Define your social media links here
+  const links = {
+    facebook: 'https://facebook.com/yourpage',
+    telegram: 'https://t.me/yourchannel',
+    twitter: 'https://twitter.com/yourpage',
+    instagram: 'https://instagram.com/yourpage',
+    youtube: 'https://youtube.com/yourpage',
+  };
 
 useEffect(() => {
   let unsubscribeAnnouncements;
@@ -168,6 +184,37 @@ useEffect(() => {
           </div>
         )}
       </div>
+
+      <div className="bg-white p-4 rounded shadow mt-6">
+  <h3 className="text-lg font-semibold mb-2">Follow Us</h3>
+  <div className="space-x-4 text-xl text-green-700">
+    {links.facebook && (
+      <a href={links.facebook} target="_blank" rel="noopener noreferrer">
+        <FaFacebook className="inline hover:text-blue-600 text-blue-600" />
+      </a>
+    )}
+    {links.telegram && (
+      <a href={links.telegram} target="_blank" rel="noopener noreferrer">
+        <FaTelegram className="inline hover:text-blue-600 text-blue-600" />
+      </a>
+    )}
+    {links.twitter && (
+      <a href={links.twitter} target="_blank" rel="noopener noreferrer">
+        <FaTwitter className="inline hover:text-blue-500 text-blue-500" />
+      </a>
+    )}
+    {links.instagram && (
+      <a href={links.instagram} target="_blank" rel="noopener noreferrer">
+        <FaInstagram className="inline hover:text-pink-600 text-pink-600" />
+      </a>
+    )}
+    {links.youtube && (
+      <a href={links.youtube} target="_blank" rel="noopener noreferrer">
+        <FaYoutube className="inline hover:text-red-600 text-red-600" />
+      </a>
+    )}
+  </div>
+</div>
 
       {/* Action Buttons */}
       <div className="mt-8 space-x-4">
