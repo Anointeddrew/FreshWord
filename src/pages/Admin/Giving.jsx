@@ -14,13 +14,11 @@ function AdminGiving() {
   const [users, setUsers] = useState({});
 
   const fetchData = async () => {
-    // Get giving records
     const q = query(collection(db, 'giving'), orderBy('date', 'desc'));
     const snap = await getDocs(q);
     const givingData = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     setRecords(givingData);
 
-    // Get user names
     const userSnap = await getDocs(collection(db, 'users'));
     const userMap = {};
     userSnap.docs.forEach(doc => {
@@ -66,6 +64,7 @@ function AdminGiving() {
               <th className="p-2">#</th>
               <th className="p-2">Member Name</th>
               <th className="p-2">Amount</th>
+              <th className="p-2">Purpose</th>
               <th className="p-2">Date</th>
               <th className="p-2">Actions</th>
             </tr>
@@ -76,6 +75,7 @@ function AdminGiving() {
                 <td className="p-2">{index + 1}</td>
                 <td className="p-2">{users[rec.uid] || rec.uid}</td>
                 <td className="p-2">₦{rec.amount?.toLocaleString()}</td>
+                <td className="p-2 capitalize">{rec.purpose || 'N/A'}</td>
                 <td className="p-2">{rec.date?.toDate().toLocaleString()}</td>
                 <td className="p-2">
                   <button
@@ -89,7 +89,7 @@ function AdminGiving() {
             ))}
             {records.length === 0 && (
               <tr>
-                <td colSpan="5" className="p-4 text-center text-gray-500">No giving records found.</td>
+                <td colSpan="6" className="p-4 text-center text-gray-500">No giving records found.</td>
               </tr>
             )}
           </tbody>

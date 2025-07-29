@@ -24,73 +24,78 @@ function MemberDashboard() {
   const [showNotification, setShowNotification] = useState(false);
   const [newAnnouncementTitle, setNewAnnouncementTitle] = useState('');
 
-  useEffect(() => {
-    const fetchDashboardData = async () => {
-      const userDoc = await getDoc(doc(db, 'users', auth.currentUser.uid));
-      if (userDoc.exists()) {
-        const data = userDoc.data();
-        setFullName(data.fullName || '');
-        const dept = data.department || '';
-        setDepartment(dept);
+useEffect(() => {
+  let unsubscribeAnnouncements;
+  let unsubscribeGiving;
 
-        const totalFields = 6;
-        const filledFields = ['fullName', 'phone', 'dob', 'maritalStatus', 'occupation', 'department']
-          .filter(field => data[field] && data[field] !== '').length;
-        setProfileCompletion(Math.round((filledFields / totalFields) * 100));
+  const fetchDashboardData = async () => {
+    const userDoc = await getDoc(doc(db, 'users', auth.currentUser.uid));
+    if (userDoc.exists()) {
+      const data = userDoc.data();
+      setFullName(data.fullName || '');
+      const dept = data.department || '';
+      setDepartment(dept);
 
-        // Real-time announcement listener
-        let firstLoad = true;
-        const annQuery = query(
-          collection(db, 'announcements'),
-          where('department', 'in', [dept, 'all']),
-          orderBy('createdAt', 'desc')
-        );
+      const totalFields = 6;
+      const filledFields = ['fullName', 'phone', 'dob', 'maritalStatus', 'occupation', 'department']
+        .filter(field => data[field] && data[field] !== '').length;
+      setProfileCompletion(Math.round((filledFields / totalFields) * 100));
 
-        const unsubscribe = onSnapshot(annQuery, (snapshot) => {
-          const annList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      const annQuery = query(
+        collection(db, 'announcements'),
+        where('department', 'in', [dept, 'all']),
+        orderBy('createdAt', 'desc')
+      );
 
-          if (!firstLoad && annList.length > announcements.length) {
-            const latest = annList[0];
-            setNewAnnouncementTitle(latest.title || 'New Announcement');
-            setShowNotification(true);
-            setTimeout(() => setShowNotification(false), 5000);
-          }
+      let firstLoad = true;
+      unsubscribeAnnouncements = onSnapshot(annQuery, (snapshot) => {
+        const annList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        if (!firstLoad && annList.length > announcements.length) {
+          const latest = annList[0];
+          setNewAnnouncementTitle(latest.title || 'New Announcement');
+          setShowNotification(true);
+          setTimeout(() => setShowNotification(false), 5000);
+        }
+        setAnnouncements(annList);
+        setLoadingAnnouncements(false);
+        firstLoad = false;
+      });
 
-          setAnnouncements(annList);
-          setLoadingAnnouncements(false);
-          firstLoad = false;
-        });
-
-        // Cleanup
-        return () => {
-          if (unsubscribe) unsubscribe();
-        };
-      }
-
-      const attendanceSnap = await getDocs(query(
-        collection(db, 'attendance'),
-        where('uid', '==', auth.currentUser.uid)
-      ));
-      setAttendanceCount(attendanceSnap.size);
-
-      const givingSnap = await getDocs(query(
+      // Real-time giving updates
+      const givingQuery = query(
         collection(db, 'giving'),
         where('uid', '==', auth.currentUser.uid)
-      ));
-      const total = givingSnap.docs.reduce((sum, doc) => sum + doc.data().amount, 0);
-      setTotalGiving(total);
-    };
+      );
+      unsubscribeGiving = onSnapshot(givingQuery, (snapshot) => {
+        const total = snapshot.docs.reduce((sum, doc) => sum + (doc.data().amount || 0), 0);
+        setTotalGiving(total);
+      });
+    }
 
-    const fetchEvents = async () => {
-      const q = query(collection(db, 'events'), orderBy('date', 'asc'));
-      const snap = await getDocs(q);
-      const list = snap.docs.map(doc => doc.data());
-      setEvents(list);
-    };
+    // Static attendance (optional to make real-time as well)
+    const attendanceSnap = await getDocs(query(
+      collection(db, 'attendance'),
+      where('uid', '==', auth.currentUser.uid)
+    ));
+    setAttendanceCount(attendanceSnap.size);
+  };
 
-    fetchDashboardData();
-    fetchEvents();
-  }, []);
+  const fetchEvents = async () => {
+    const q = query(collection(db, 'events'), orderBy('date', 'asc'));
+    const snap = await getDocs(q);
+    const list = snap.docs.map(doc => doc.data());
+    setEvents(list);
+  };
+
+  fetchDashboardData();
+  fetchEvents();
+
+  return () => {
+    if (unsubscribeAnnouncements) unsubscribeAnnouncements();
+    if (unsubscribeGiving) unsubscribeGiving();
+  };
+}, []);
+
 
   return (
     <div className="p-4 bg-white max-w-4xl mx-auto relative">

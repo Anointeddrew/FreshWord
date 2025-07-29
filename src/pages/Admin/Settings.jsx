@@ -3,16 +3,16 @@ import { db } from '../../firebaseconfig';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 
 function AdminSettings() {
-  const [titheAccount, setTitheAccount] = useState({
+  const [tithe, setTithe] = useState({
     accountName: '',
     accountNumber: '',
-    bankName: '',
+    bankName: ''
   });
 
-  const [welfareAccount, setWelfareAccount] = useState({
+  const [welfare, setWelfare] = useState({
     accountName: '',
     accountNumber: '',
-    bankName: '',
+    bankName: ''
   });
 
   useEffect(() => {
@@ -21,79 +21,80 @@ function AdminSettings() {
       const snap = await getDoc(ref);
       if (snap.exists()) {
         const data = snap.data();
-        if (data.titheAccount) setTitheAccount(data.titheAccount);
-        if (data.welfareAccount) setWelfareAccount(data.welfareAccount);
+        setTithe(data.tithe || {});
+        setWelfare(data.welfare || {});
       }
     };
     fetchSettings();
   }, []);
 
+  const handleChange = (type, field, value) => {
+    if (type === 'tithe') {
+      setTithe(prev => ({ ...prev, [field]: value }));
+    } else {
+      setWelfare(prev => ({ ...prev, [field]: value }));
+    }
+  };
+
   const saveSettings = async () => {
     const ref = doc(db, 'settings', 'churchInfo');
-    await setDoc(
-      ref,
-      {
-        titheAccount,
-        welfareAccount,
-      },
-      { merge: true }
-    );
-    alert('Church accounts updated!');
+    await setDoc(ref, { tithe, welfare }, { merge: true });
+    alert('Account info updated successfully!');
   };
 
   return (
     <div className="p-6 max-w-2xl mx-auto bg-white rounded shadow-md">
-      <h2 className="text-xl font-bold text-center bg-green-700 rounded text-white py-2 mb-4">Church Account Settings</h2>
+      <h2 className="text-xl font-bold text-center bg-green-700 rounded text-white py-2 mb-6">
+        Church Account Settings
+      </h2>
 
-      {/* Tithe Account Section */}
-      <div className="mb-6 border-b pb-4">
-        <h3 className="text-lg font-semibold mb-2 text-green-700">Tithe Account</h3>
+      <div className="mb-6">
+        <h3 className="text-lg font-semibold mb-2">Tithe Account</h3>
         <input
-          value={titheAccount.accountName}
-          onChange={(e) => setTitheAccount({ ...titheAccount, accountName: e.target.value })}
+          value={tithe.accountName}
+          onChange={(e) => handleChange('tithe', 'accountName', e.target.value)}
           type="text"
           placeholder="Account Name"
-          className="input mb-3 w-full"
+          className="input w-full mb-2"
         />
         <input
-          value={titheAccount.accountNumber}
-          onChange={(e) => setTitheAccount({ ...titheAccount, accountNumber: e.target.value })}
+          value={tithe.accountNumber}
+          onChange={(e) => handleChange('tithe', 'accountNumber', e.target.value)}
           type="text"
           placeholder="Account Number"
-          className="input mb-3 w-full"
+          className="input w-full mb-2"
         />
         <input
-          value={titheAccount.bankName}
-          onChange={(e) => setTitheAccount({ ...titheAccount, bankName: e.target.value })}
+          value={tithe.bankName}
+          onChange={(e) => handleChange('tithe', 'bankName', e.target.value)}
           type="text"
           placeholder="Bank Name"
-          className="input mb-3 w-full"
+          className="input w-full mb-2"
         />
       </div>
 
-      {/* Welfare Account Section */}
       <div className="mb-6">
-        <h3 className="text-lg font-semibold mb-2 text-green-700">Welfare Account</h3>
+        <h3 className="text-lg font-semibold mb-2">Welfare Account</h3>
         <input
-          value={welfareAccount.accountName}
-          onChange={(e) => setWelfareAccount({ ...welfareAccount, accountName: e.target.value })}
+          value={welfare.accountName}
+          onChange={(e) => handleChange('welfare', 'accountName', e.target.value)}
           type="text"
           placeholder="Account Name"
-          className="input mb-3 w-full"
+          className="input w-full mb-2"
         />
         <input
-          value={welfareAccount.accountNumber}
-          onChange={(e) => setWelfareAccount({ ...welfareAccount, accountNumber: e.target.value })}
+          value={welfare.accountNumber}
+          onChange={(e) => handleChange('welfare', 'accountNumber', e.target.value)}
           type="text"
           placeholder="Account Number"
-          className="input mb-3 w-full"
+          className="input w-full mb-2"
         />
         <input
-          value={welfareAccount.bankName}
-          onChange={(e) => setWelfareAccount({ ...welfareAccount, bankName: e.target.value })}
+          value={welfare.bankName}
+          onChange={(e) => handleChange('welfare', 'bankName', e.target.value)}
           type="text"
           placeholder="Bank Name"
-          className="input mb-3 w-full"
+          className="input w-full mb-2"
         />
       </div>
 
@@ -101,7 +102,7 @@ function AdminSettings() {
         onClick={saveSettings}
         className="btn bg-green-700 text-white w-full hover:bg-green-600"
       >
-        Save Account Info
+        Save All Account Info
       </button>
     </div>
   );
