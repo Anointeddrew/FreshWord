@@ -100,7 +100,7 @@ function AdminSettings() {
 
       <button
         onClick={saveSettings}
-        className="btn bg-green-700 text-white w-full hover:bg-green-600"
+        className="bg-green-700 text-white w-full hover:bg-green-600"
       >
         Save All Account Info
       </button>
