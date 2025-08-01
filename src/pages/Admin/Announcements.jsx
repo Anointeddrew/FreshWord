@@ -20,7 +20,7 @@ function AdminAnnouncement() {
   const [announcements, setAnnouncements] = useState([]);
   const [editId, setEditId] = useState(null);
 
-  const departments = ['all', 'choir', 'ushering', 'media', 'children', 'prayer'];
+  const departments = ['all', 'choir', 'ushering', 'media', 'children', 'prayer', 'Sanitation'];
 
   const fetchAnnouncements = async () => {
     const q = query(collection(db, 'announcements'), orderBy('createdAt', 'desc'));
