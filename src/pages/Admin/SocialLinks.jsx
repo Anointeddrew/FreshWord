@@ -1,4 +1,3 @@
-// src/pages/Admin/SocialLinks.jsx
 import React, { useEffect, useState } from 'react';
 import { db } from '../../firebaseconfig';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
@@ -31,9 +30,24 @@ function AdminSocialLinks() {
     setLinks((prev) => ({ ...prev, [name]: value }));
   };
 
+  const ensureHttps = (url) => {
+    if (!url) return '';
+    return url.startsWith('http://') || url.startsWith('https://')
+      ? url
+      : `https://${url}`;
+  };
+
   const saveLinks = async () => {
     try {
-      await setDoc(docRef, links);
+      const sanitizedLinks = {
+        facebook: ensureHttps(links.facebook),
+        telegram: ensureHttps(links.telegram),
+        twitter: ensureHttps(links.twitter),
+        instagram: ensureHttps(links.instagram),
+        youtube: ensureHttps(links.youtube),
+      };
+
+      await setDoc(docRef, sanitizedLinks);
       alert('Social media links updated successfully!');
     } catch (err) {
       console.error('Error saving links:', err);
