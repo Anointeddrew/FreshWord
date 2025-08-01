@@ -30,15 +30,15 @@ function MemberDashboard() {
   const [loadingAnnouncements, setLoadingAnnouncements] = useState(true);
   const [showNotification, setShowNotification] = useState(false);
   const [newAnnouncementTitle, setNewAnnouncementTitle] = useState('');
+  const [links, setLinks] = useState({
+  facebook: '',
+  telegram: '',
+  twitter: '',
+  instagram: '',
+  youtube: '',
+});
 
-  // Define your social media links here
-  const links = {
-    facebook: 'https://facebook.com/yourpage',
-    telegram: 'https://t.me/yourchannel',
-    twitter: 'https://twitter.com/yourpage',
-    instagram: 'https://instagram.com/yourpage',
-    youtube: 'https://youtube.com/yourpage',
-  };
+
 
 useEffect(() => {
   let unsubscribeAnnouncements;
@@ -88,7 +88,7 @@ useEffect(() => {
       });
     }
 
-    // Static attendance (optional to make real-time as well)
+    // Counts attendance records
     const attendanceSnap = await getDocs(query(
       collection(db, 'attendance'),
       where('uid', '==', auth.currentUser.uid)
@@ -103,8 +103,22 @@ useEffect(() => {
     setEvents(list);
   };
 
+  const fetchSocialLinks = async () => {
+  try {
+    const docRef = doc(db, 'settings', 'churchSocialLinks');
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      setLinks(docSnap.data());
+    }
+  } catch (err) {
+    console.error('Failed to fetch social links:', err);
+  }
+};
+
+
   fetchDashboardData();
   fetchEvents();
+  fetchSocialLinks();
 
   return () => {
     if (unsubscribeAnnouncements) unsubscribeAnnouncements();
@@ -185,6 +199,13 @@ useEffect(() => {
         )}
       </div>
 
+      {/* Action Buttons */}
+      <div className="mt-8 space-x-4">
+        <Link to="/member/messages" className="text-white text-md py-2 px-2 bg-green-700 rounded hover:bg-green-600">Messages</Link>
+        <Link to="/member/profile" className="text-white text-md py-2 px-2 bg-green-700 rounded hover:bg-green-600">My Profile</Link>
+        <Link to="/member/giving" className="text-white text-md py-2 px-2 bg-green-700 rounded hover:bg-green-600">Give Now</Link>
+      </div>
+      {/* Social Media Links */}
       <div className="bg-white p-4 rounded shadow mt-6">
   <h3 className="text-lg font-semibold mb-2">Follow Us</h3>
   <div className="space-x-4 text-xl text-green-700">
@@ -215,14 +236,8 @@ useEffect(() => {
     )}
   </div>
 </div>
-
-      {/* Action Buttons */}
-      <div className="mt-8 space-x-4">
-        <Link to="/member/messages" className="text-white text-md py-2 px-2 bg-green-700 rounded hover:bg-green-600">Messages</Link>
-        <Link to="/member/profile" className="text-white text-md py-2 px-2 bg-green-700 rounded hover:bg-green-600">My Profile</Link>
-        <Link to="/member/giving" className="text-white text-md py-2 px-2 bg-green-700 rounded hover:bg-green-600">Give Now</Link>
-      </div>
     </div>
+    
   );
 }
 
