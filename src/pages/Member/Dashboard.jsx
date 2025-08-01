@@ -19,6 +19,7 @@ import {
   FaYoutube,
 } from 'react-icons/fa';
 
+
 function MemberDashboard() {
   const [fullName, setFullName] = useState('');
   const [attendanceCount, setAttendanceCount] = useState(0);
@@ -207,7 +208,7 @@ useEffect(() => {
       </div>
       {/* Social Media Links */}
       <div className="bg-white p-4 rounded shadow mt-6">
-  <h3 className="text-lg font-semibold mb-2">Follow Us</h3>
+  <h3 className="text-lg font-semibold mb-2">Follow Us...</h3>
   <div className="space-x-4 text-xl text-green-700">
     {links.facebook && (
       <a href={links.facebook} target="_blank" rel="noopener noreferrer">
