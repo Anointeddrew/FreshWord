@@ -62,7 +62,7 @@ function MemberSuggestions() {
       });
 
       setMessage('');
-      alert('Suggestion sent successfully!');
+      alert('Sent successfully!');
       fetchSuggestions(); // Refresh list
     } catch (error) {
       console.error('Error sending suggestion:', error);
@@ -78,7 +78,7 @@ function MemberSuggestions() {
 
   return (
     <div className="p-6 max-w-2xl mx-auto bg-white rounded shadow-md">
-      <h1 className="text-xl bg-green-700 rounded text-center text-white font-bold mb-4">Send a Suggestion or Comment</h1>
+      <h1 className="text-xl bg-green-700 rounded text-center text-white font-bold mb-4">Share a Testimony or Send a Suggestion</h1>
       <form onSubmit={handleSubmit} className="space-y-4 mb-8 bg-gray-50 p-2 rounded shadow">
         <textarea
           rows="4"
@@ -92,11 +92,11 @@ function MemberSuggestions() {
           disabled={submitting}
           className="bg-green-700 text-white py-2 px-4 rounded hover:bg-green-600"
         >
-          {submitting ? 'Sending...' : 'Send Suggestion'}
+          {submitting ? 'Sending...' : 'Share Testimony/ Send Suggestion'}
         </button>
       </form>
 
-      <h2 className="text-lg font-semibold mb-2">Your Past Suggestions</h2>
+      <h2 className="text-lg font-semibold mb-2">HISTORY</h2>
       {suggestions.length === 0 ? (
         <p className="text-gray-500">No suggestions submitted yet.</p>
       ) : (

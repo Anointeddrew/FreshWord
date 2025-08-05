@@ -86,7 +86,7 @@ function AdminSuggestions() {
 
   return (
     <div className="p-6 bg-white rounded shadow-md">
-      <h1 className="text-2xl text-center bg-green-700 rounded text-white py-2 font-bold mb-4">Member Suggestions</h1>
+      <h1 className="text-2xl text-center bg-green-700 rounded text-white py-2 font-bold mb-4">Testimonies & Suggestions</h1>
       {suggestions.length === 0 ? (
         <p>No suggestions submitted yet.</p>
       ) : (

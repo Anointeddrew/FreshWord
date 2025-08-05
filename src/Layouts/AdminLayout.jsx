@@ -11,7 +11,7 @@ const navItems = [
   { label: 'Messaging', path: '/admin/messaging' },
   { label: 'Announcements', path: '/admin/announcements' },
   { label: 'Events', path: '/admin/events' },
-  { label: 'Suggestions', path: '/admin/suggestion' },
+  { label: 'Testimonies/Suggestions', path: '/admin/suggestion' },
   { label: 'Settings', path: '/admin/settings' },
   { label: 'Social Links', path: '/admin/social-links' },
 ];

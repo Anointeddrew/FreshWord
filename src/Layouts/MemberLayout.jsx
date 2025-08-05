@@ -9,7 +9,7 @@ const navItems = [
   { label: 'Attendance', path: '/member/attendance' },
   { label: 'Giving', path: '/member/giving' },
   { label: 'Messages', path: '/member/messages' },
-  { label: 'Suggestions', path: '/member/suggestions' }
+  { label: 'Testimonies/Suggestions', path: '/member/suggestions' }
 ];
 
 const MemberLayout = () => {
