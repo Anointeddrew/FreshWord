@@ -35,12 +35,19 @@ function MemberSuggestions() {
         ...docSnap.data(),
       }));
 
-      // Mark unseen replies as notified, await all updates before proceeding
-      await Promise.all(
+      setSuggestions(list);
+      // After suggestions are shown, mark unseen replies as notified
+      setTimeout(async () => {
+        try {
+          await Promise.all(
         list
           .filter(s => s.reply && s.replyNotified !== true)
           .map(s => updateDoc(doc(db, 'suggestions', s.id), { replyNotified: true }))
       );
+    } catch (err) {
+      console.error('Error marking replies as notified:', err);
+    }
+    }, 500); // short delay to allow UI rendering
 
       setSuggestions(list);
     } catch (error) {
@@ -154,6 +161,9 @@ function MemberSuggestions() {
               {s.reply && (
                 <div className="mt-2 bg-green-100 text-green-800 p-2 rounded">
                   <strong>Admin Reply:</strong> {s.reply}
+                  {!s.replyNotified && (
+                    <span className="absolute top-0 right-0 bg-red-500 text-white text-xs px-2 py-1 rounded-bl"> 🆕 New Reply </span>
+                  )}
                 </div>
               )}
               <button
