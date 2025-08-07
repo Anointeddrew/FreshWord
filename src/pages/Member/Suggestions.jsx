@@ -7,6 +7,7 @@ import {
   where,
   getDocs,
   Timestamp,
+  deleteDoc,
   orderBy,
   updateDoc,
   doc
@@ -16,6 +17,7 @@ function MemberSuggestions() {
   const [message, setMessage] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
+  const [editData, setEditData] = useState({ id: null, message: '' });
 
   const fetchSuggestions = async () => {
     try {
@@ -51,8 +53,13 @@ function MemberSuggestions() {
     if (!message.trim()) return alert('Message cannot be empty');
 
     setSubmitting(true);
-    try {
       const user = auth.currentUser;
+
+      try {
+        if (editData.id) {
+          await updateDoc(doc(db, 'suggestions', editData.id), { message, timestamp: Timestamp.now(), });
+          alert('Updated successfully!');
+        } else {
       await addDoc(collection(db, 'suggestions'), {
         memberId: user.uid,
         name: user.displayName || 'Anonymous',
@@ -60,15 +67,39 @@ function MemberSuggestions() {
         timestamp: Timestamp.now(),
         replyNotified: false,
       });
+      alert('Sent successfully!');
+    }
 
       setMessage('');
-      alert('Sent successfully!');
+      setEditData({id: null, message: ''});
       fetchSuggestions(); // Refresh list
     } catch (error) {
       console.error('Error sending suggestion:', error);
       alert('Failed to send suggestion');
     } finally {
       setSubmitting(false);
+    }
+  };
+
+  const handleEdit = (id) => {
+    const suggestion = suggestions.find(s => s.id === id);
+    if (suggestion) {
+      setEditData({ id, message: suggestion.message });
+      setMessage(suggestion.message);
+    }
+
+  };
+
+  const handleDelete = async (id) => {
+    const confirm = window.confirm('Are you sure you want to delete this suggestion?');
+    if (!confirm) return;
+
+    try {
+      await deleteDoc(doc(db, 'suggestions', id));
+      setSuggestions(prev => prev.filter(s => s.id !== id));
+    } catch (err) {
+      console.error('Error deleting suggestion:', err);
+      alert('Failed to delete suggestion');
     }
   };
 
@@ -94,6 +125,19 @@ function MemberSuggestions() {
         >
           {submitting ? 'Sending...' : 'Share Testimony/ Send Suggestion'}
         </button>
+        {editData.id && (
+  <button
+    type="button"
+    onClick={() => {
+      setEditData({ id: null, message: '' });
+      setMessage('');
+    }}
+    className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 ml-2"
+  >
+    Cancel Edit
+  </button>
+)}
+
       </form>
 
       <h2 className="text-lg font-semibold mb-2">HISTORY</h2>
@@ -112,6 +156,18 @@ function MemberSuggestions() {
                   <strong>Admin Reply:</strong> {s.reply}
                 </div>
               )}
+              <button
+                onClick={() => handleEdit(s.id)}
+                className="bg-blue-500 text-white mt-2 px-2 mr-1 py-1 text-sm rounded hover:bg-blue-600"
+              >
+                Edit
+              </button>
+              <button
+                onClick={() => handleDelete(s.id)}
+                className="bg-red-500 text-white mt-2 px-2 py-1 text-sm rounded hover:bg-red-600"
+              >
+                Delete
+              </button>
             </li>
           ))}
         </ul>
