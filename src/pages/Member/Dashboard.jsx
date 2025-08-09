@@ -31,6 +31,8 @@ function MemberDashboard() {
   const [loadingAnnouncements, setLoadingAnnouncements] = useState(true);
   const [showNotification, setShowNotification] = useState(false);
   const [newAnnouncementTitle, setNewAnnouncementTitle] = useState('');
+  const [dailyVerse, setDailyVerse] = useState(null);
+
   const [links, setLinks] = useState({
   facebook: '',
   telegram: '',
@@ -38,7 +40,6 @@ function MemberDashboard() {
   instagram: '',
   youtube: '',
 });
-
 
 
 useEffect(() => {
@@ -116,7 +117,21 @@ useEffect(() => {
   }
 };
 
+const fetchDailyScripture = async () => {
+  const today = new Date();
+  const key = `${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+  try {
+    const docRef = doc(db, 'dailyScriptures', key);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      setDailyVerse(docSnap.data());
+    }
+  } catch (error) {
+    console.error('Failed to fetch daily scripture:', error);
+  }
+};
 
+  fetchDailyScripture();
   fetchDashboardData();
   fetchEvents();
   fetchSocialLinks();
@@ -138,6 +153,13 @@ useEffect(() => {
       )}
 
       <h1 className="text-2xl bg-green-700 text-white text-center rounded font-bold mb-4">Welcome, {fullName || 'Member'} 👋</h1>
+      {dailyVerse && (
+  <div className="bg-yellow-100 border-l-4 border-yellow-600 p-4 mb-4 rounded shadow">
+    <p className="text-sm text-gray-700">📖 <strong>{dailyVerse.verse}</strong></p>
+    <p className="text-gray-900 mt-1 italic">"{dailyVerse.text}"</p>
+  </div>
+)}
+
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="bg-green-200 p-4 shadow rounded-lg">

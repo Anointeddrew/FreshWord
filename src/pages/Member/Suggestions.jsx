@@ -162,7 +162,7 @@ function MemberSuggestions() {
                 <div className="mt-2 bg-green-100 text-green-800 p-2 rounded">
                   <strong>Admin Reply:</strong> {s.reply}
                   {!s.replyNotified && (
-                    <span className="absolute top-0 right-0 bg-red-500 text-white text-xs px-2 py-1 rounded-bl"> 🆕 New Reply </span>
+                    <span className="absolute top-0 right-0 bg-red-500 text-white text-xs px-1 py-1 rounded-bl"> 🆕 New Reply </span>
                   )}
                 </div>
               )}

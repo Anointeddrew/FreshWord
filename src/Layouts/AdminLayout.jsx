@@ -7,13 +7,14 @@ const navItems = [
   { label: 'Dashboard', path: '/admin' },
   { label: 'Users', path: '/admin/users' },
   { label: 'Attendance', path: '/admin/attendance' },
-  { label: 'Giving', path: '/admin/giving' },
+  { label: 'First Timers', path: '/admin/first-timers' },
   { label: 'Messaging', path: '/admin/messaging' },
   { label: 'Announcements', path: '/admin/announcements' },
   { label: 'Events', path: '/admin/events' },
   { label: 'Testimonies/Suggestions', path: '/admin/suggestion' },
   { label: 'Settings', path: '/admin/settings' },
   { label: 'Social Links', path: '/admin/social-links' },
+  { label: 'Giving', path: '/admin/giving' },
 ];
 
 const AdminLayout = () => {

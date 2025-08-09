@@ -22,6 +22,8 @@ import MemberMessages from './pages/Member/Messages';
 import MemberSuggestions from './pages/Member/Suggestions';
 import ProtectedRoute from './Routes/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
+import FirstTimerForm from './pages/FirstTimerForm';
+import AdminFirstTimers from './pages/Admin/FirstTimers';
 
 function App() {
   return (
@@ -30,6 +32,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/first-timer" element={<FirstTimerForm />} />
+
 
           {/* Admin Protected Routes */}
           <Route path="/admin" element={
@@ -47,6 +51,7 @@ function App() {
             <Route path="suggestion" element={<AdminSuggestions />} />
             <Route path="settings" element={<AdminSettings />} />
             <Route path="social-links" element={<AdminSocialLinks />} />
+            <Route path="first-timers" element={<AdminFirstTimers />} />
           </Route>
 
           {/* Member Protected Routes */}

@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
 import { auth, db } from '../../firebaseconfig';
 import { doc, setDoc } from 'firebase/firestore';
-import { useNavigate } from 'react-router-dom';
+//import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 
 function Register() {
@@ -12,7 +12,8 @@ function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const navigate = useNavigate();
+  const [message, setMessage] = useState('');
+ // const navigate = useNavigate();
 
   const getPasswordStrength = (pwd) => {
     let strength = 0;
@@ -32,6 +33,7 @@ function Register() {
   const handleRegister = async (e) => {
     e.preventDefault();
     setError('');
+    setMessage('');
 
     if (password !== confirmPassword) {
       setError('Passwords do not match');
@@ -44,13 +46,21 @@ function Register() {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
+      // Send verification email
+      await sendEmailVerification(user);
+
+      // Save user data with "unverified" status
       await setDoc(doc(db, 'users', user.uid), {
         email,
         role: 'member',
-        createdAt: new Date()
+        createdAt: new Date(),
+        verified: false
       });
 
-      navigate('/member');
+      setMessage('A verification link has been sent to your email. Please verify before logging in.');
+      setEmail('');
+      setPassword('');
+      setConfirmPassword('');
     } catch (err) {
       setError(err.message);
     } finally {
@@ -65,9 +75,8 @@ function Register() {
         <form onSubmit={handleRegister} className="bg-white p-6 rounded shadow-md w-full max-w-md">
           <h2 className="text-2xl text-center font-bold mb-4">Register</h2>
 
-          {error && (
-            <p className="text-red-600 text-sm text-center mb-3">{error}</p>
-          )}
+          {error && <p className="text-red-600 text-sm text-center mb-3">{error}</p>}
+          {message && <p className="text-green-600 text-sm text-center mb-3">{message}</p>}
 
           <input
             type="email"
@@ -123,6 +132,7 @@ function Register() {
           <button
             type="submit"
             className="btn w-full bg-green-600 text-white py-2 rounded hover:bg-green-700"
+            disabled={loading}
           >
             {loading ? 'Registering...' : 'Register'}
           </button>
