@@ -43,6 +43,10 @@ function AdminFirstTimers() {
       Phone: timer.phone,
       Email: timer.email || "",
       Address: timer.address || "",
+      Occupation: timer.occupation || "",
+      MaritalStatus: timer.maritalStatus || "",
+      InvitedBy: timer.invitedBy || "",
+      Comments: timer.comments || "",
       PrayerRequest: timer.prayerRequest || "",
       Date: timer.createdAt?.toDate().toLocaleDateString() || "",
     }));
@@ -79,8 +83,8 @@ function AdminFirstTimers() {
   return (
     <div className="p-6">
       {/* Top bar with filters */}
-      <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-4">
-        <h2 className="text-2xl font-bold">First Timers</h2>
+      <div className="flex flex-col flex-row md:justify-between md:items-center gap-4 mb-4">
+        <h2 className="text-2xl text-center font-bold">First Timers</h2>
         <div className="flex gap-2 flex-wrap">
           <input
             type="text"
@@ -121,6 +125,10 @@ function AdminFirstTimers() {
             <th className="border p-2">Phone</th>
             <th className="border p-2">Email</th>
             <th className="border p-2">Address</th>
+            <th className="border p-2">Occupation</th>
+            <th className="border p-2">Marital Status</th>
+            <th className="border p-2">Invited By</th>
+            <th className="border p-2">Comments</th>
             <th className="border p-2">Prayer Request</th>
             <th className="border p-2">Date</th>
             <th className="border p-2">Action</th>
@@ -133,6 +141,10 @@ function AdminFirstTimers() {
               <td className="border p-2">{timer.phone}</td>
               <td className="border p-2">{timer.email}</td>
               <td className="border p-2">{timer.address}</td>
+              <td className="border p-2">{timer.occupation}</td>
+              <td className="border p-2">{timer.maritalStatus}</td>
+              <td className="border p-2">{timer.invitedBy}</td>
+              <td className="border p-2">{timer.comments}</td>
               <td className="border p-2">{timer.prayerRequest}</td>
               <td className="border p-2">
                 {timer.createdAt?.toDate().toLocaleDateString()}

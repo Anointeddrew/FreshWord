@@ -9,6 +9,10 @@ function FirstTimerForm() {
     phone: "",
     email: "",
     address: "",
+    occupation: "",
+    maritalStatus: "",
+    invitedBy: "",
+    comments: "",
     prayerRequest: "",
   });
 
@@ -36,6 +40,8 @@ function FirstTimerForm() {
         phone: "",
         email: "",
         address: "",
+        occupation: "",
+        maritalStatus: "",
         invitedBy: "",
         comments: "",
         prayerRequest: "",
@@ -88,6 +94,22 @@ function FirstTimerForm() {
           name="address"
           placeholder="Address"
           value={formData.address}
+          onChange={handleChange}
+          className="w-full border p-2 rounded"
+        />
+        <input
+          type="text"
+          name="occupation"
+          placeholder="Occupation (optional)"
+          value={formData.occupation}
+          onChange={handleChange}
+          className="w-full border p-2 rounded"
+        />
+        <input
+          type="text"
+          name="maritalStatus"
+          placeholder="Marital Status (optional)"
+          value={formData.maritalStatus}
           onChange={handleChange}
           className="w-full border p-2 rounded"
         />
