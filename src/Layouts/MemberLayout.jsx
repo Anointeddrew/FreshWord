@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
-import { signOut } from 'firebase/auth';
-import { auth } from '../firebaseconfig';
+import { signOut, deleteUser } from 'firebase/auth';
+import { auth, db } from '../firebaseconfig';
+import { doc, deleteDoc } from 'firebase/firestore';
 
 const navItems = [
   { label: 'Dashboard', path: '/member' },
@@ -19,6 +20,40 @@ const MemberLayout = () => {
   const handleLogout = async () => {
     await signOut(auth);
     window.location.href = '/login';
+  };
+
+  const handleDeleteAccount = async () => {
+    const confirmation = window.confirm(
+      "Are you sure you want to delete your account? This action cannot be undone."
+    );
+
+    if (!confirmation) return;
+
+    try {
+      const user = auth.currentUser;
+      if (!user) {
+        alert("No user is logged in.");
+        return;
+      }
+
+      // 1️⃣ Remove user data from Firestore
+      await deleteDoc(doc(db, "users", user.uid));
+
+      // 2️⃣ Delete Firebase Authentication account
+      await deleteUser(user);
+
+      alert("Your account has been deleted successfully.");
+      window.location.href = '/login';
+    } catch (error) {
+      console.error("Error deleting account:", error);
+      if (error.code === "auth/requires-recent-login") {
+        alert("Please log in again before deleting your account for security reasons.");
+        await signOut(auth);
+        window.location.href = '/login';
+      } else {
+        alert("Failed to delete account. Please try again.");
+      }
+    }
   };
 
   return (
@@ -55,6 +90,14 @@ const MemberLayout = () => {
           >
             Logout
           </button>
+          <div>
+          <button
+            onClick={handleDeleteAccount}
+            className="mt-2 text-red-800 hover:underline"
+          >
+            Delete Account
+          </button>
+          </div>
         </nav>
       )}
 
@@ -75,6 +118,9 @@ const MemberLayout = () => {
           ))}
         </nav>
         <button onClick={handleLogout} className="mt-6 text-red-400 hover:underline">Logout</button>
+        <div>
+        <button onClick={handleDeleteAccount} className="mt-2 text-red-200 hover:underline">Delete Account</button>
+        </div>
       </aside>
 
       {/* Main Content */}

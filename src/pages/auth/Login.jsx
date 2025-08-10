@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
+import { signInWithEmailAndPassword, sendPasswordResetEmail, sendEmailVerification } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { auth, db } from '../../firebaseconfig';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 import Navbar from '../../components/Navbar';
 
 function Login() {
@@ -14,6 +14,9 @@ function Login() {
   const [success, setSuccess] = useState('');
   const navigate = useNavigate();
 
+  // Date you enabled verification policy
+  const VERIFICATION_POLICY_DATE = new Date('2025-08-09');
+
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -21,24 +24,54 @@ function Login() {
     setSuccess('');
 
     try {
-      const res = await signInWithEmailAndPassword(auth, email, password);
-      const docRef = doc(db, 'users', res.user.uid);
-      const docSnap = await getDoc(docRef);
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
 
-      if (docSnap.exists()) {
-        const role = docSnap.data().role;
+      // Get account creation date
+      const createdAt = new Date(user.metadata.creationTime);
 
-        if (role === 'admin') {
-          navigate('/admin');
-        } else if (role === 'member') {
-          navigate('/member');
-        } else {
-          setError('Unauthorized: No valid role assigned.');
-          navigate('/unauthorized');
-        }
-      } else {
-        setError('User role not found in database.');
+      // Enforce verification for new accounts only
+      if (!user.emailVerified && createdAt >= VERIFICATION_POLICY_DATE) {
+        await sendEmailVerification(user);
+        setError('A verification email has been sent. Please verify before logging in.');
+        await auth.signOut();
+        setLoading(false);
+        return;
       }
+
+      // For old accounts without verification, send email but still allow login
+      if (!user.emailVerified && createdAt < VERIFICATION_POLICY_DATE) {
+        await sendEmailVerification(user);
+        setSuccess('A verification email has been sent. Please verify your account soon.');
+      }
+
+      // Check if user exists in Firestore
+      const userRef = doc(db, 'users', user.uid);
+      const userSnap = await getDoc(userRef);
+
+      if (!userSnap.exists()) {
+        // Save user only if not already in Firestore
+        await setDoc(userRef, {
+          email: user.email,
+          role: 'member',
+          createdAt: new Date()
+        });
+        navigate('/member');
+        return;
+      }
+
+      // If user exists, get role
+       const role = userSnap.data()?.role || 'member';
+
+      if (role === 'admin') {
+        navigate('/admin');
+      } else if (role === 'member') {
+        navigate('/member');
+      } else {
+        setError('Unauthorized: No valid role assigned.');
+        navigate('/unauthorized');
+      }
+
     } catch (err) {
       setError(err.message || 'Login failed.');
     } finally {

@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
 import { auth, db } from '../../firebaseconfig';
 import { doc, setDoc } from 'firebase/firestore';
-//import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 
 function Register() {
@@ -13,7 +12,6 @@ function Register() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
- // const navigate = useNavigate();
 
   const getPasswordStrength = (pwd) => {
     let strength = 0;
@@ -43,24 +41,21 @@ function Register() {
     setLoading(true);
 
     try {
+      // Create account
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
       // Send verification email
       await sendEmailVerification(user);
 
-      // Save user data with "unverified" status
-      await setDoc(doc(db, 'users', user.uid), {
-        email,
-        role: 'member',
-        createdAt: new Date(),
-        verified: false
-      });
-
+      // Don't store in Firestore yet — wait until verification
       setMessage('A verification link has been sent to your email. Please verify before logging in.');
+
+      // Clear inputs
       setEmail('');
       setPassword('');
       setConfirmPassword('');
+
     } catch (err) {
       setError(err.message);
     } finally {
@@ -120,13 +115,6 @@ function Register() {
               className="input px-4 py-2 bg-gray-100 rounded-md w-full"
               required
             />
-            <button
-              type="button"
-              onClick={() => setShowPassword(prev => !prev)}
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-sm text-gray-600"
-            >
-              {showPassword ? 'Hide' : 'Show'}
-            </button>
           </div>
 
           <button

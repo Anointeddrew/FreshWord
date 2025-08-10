@@ -1,4 +1,3 @@
-// src/components/Navbar.jsx
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useState, useEffect, useRef } from 'react';
@@ -33,12 +32,28 @@ function Navbar() {
       <div className="relative" ref={menuRef}>
         {!currentUser && (
           <div className="relative">
-            {/* Dropdown Toggle */}
+            {/* Dropdown Toggle - Hamburger to X animation */}
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="bg-green-500 px-4 py-2 rounded hover:bg-green-700  text-sm focus:outline-none"
+              className="bg-green-500 p-2 rounded hover:bg-green-700 focus:outline-none"
             >
-              ▾
+              <div className="space-y-1">
+                <span
+                  className={`block h-0.5 w-6 bg-white transition-transform duration-300 ${
+                    menuOpen ? 'rotate-45 translate-y-2' : ''
+                  }`}
+                ></span>
+                <span
+                  className={`block h-0.5 w-6 bg-white transition-all duration-300 ${
+                    menuOpen ? 'opacity-0' : 'opacity-100'
+                  }`}
+                ></span>
+                <span
+                  className={`block h-0.5 w-6 bg-white transition-transform duration-300 ${
+                    menuOpen ? '-rotate-45 -translate-y-2' : ''
+                  }`}
+                ></span>
+              </div>
             </button>
 
             {/* Dropdown Menu with slide down + fade animation */}
