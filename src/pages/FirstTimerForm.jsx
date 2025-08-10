@@ -55,7 +55,7 @@ function FirstTimerForm() {
   return (
     <div>
       <Navbar />
-    <div className="max-w-lg mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
+    <div className="max-w-lg mx-auto text-center mt-10 p-6 bg-white rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-4">First Timer Form</h2>
       {successMsg && (
         <div className="bg-green-100 text-green-700 p-3 rounded mb-4">
