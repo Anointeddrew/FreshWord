@@ -4,13 +4,16 @@ import { signOut, deleteUser } from 'firebase/auth';
 import { auth, db } from '../firebaseconfig';
 import { doc, deleteDoc } from 'firebase/firestore';
 
+// Import icons from react-icons
+import { FaTachometerAlt, FaUser, FaClipboardList, FaHandHoldingHeart, FaEnvelope, FaLightbulb } from 'react-icons/fa';
+
 const navItems = [
-  { label: 'Dashboard', path: '/member' },
-  { label: 'Profile', path: '/member/profile' },
-  { label: 'Attendance', path: '/member/attendance' },
-  { label: 'Giving', path: '/member/giving' },
-  { label: 'Messages', path: '/member/messages' },
-  { label: 'Testimonies/Suggestions', path: '/member/suggestions' }
+  { label: 'Dashboard', path: '/member', icon: <FaTachometerAlt className="inline-block mr-2" /> },
+  { label: 'Profile', path: '/member/profile', icon: <FaUser className="inline-block mr-2" /> },
+  { label: 'Attendance', path: '/member/attendance', icon: <FaClipboardList className="inline-block mr-2" /> },
+  { label: 'Giving', path: '/member/giving', icon: <FaHandHoldingHeart className="inline-block mr-2" /> },
+  { label: 'Messages', path: '/member/messages', icon: <FaEnvelope className="inline-block mr-2" /> },
+  { label: 'Testimonies/Suggestions', path: '/member/suggestions', icon: <FaLightbulb className="inline-block mr-2" /> }
 ];
 
 const MemberLayout = () => {
@@ -36,10 +39,7 @@ const MemberLayout = () => {
         return;
       }
 
-      // 1️⃣ Remove user data from Firestore
       await deleteDoc(doc(db, "users", user.uid));
-
-      // 2️⃣ Delete Firebase Authentication account
       await deleteUser(user);
 
       alert("Your account has been deleted successfully.");
@@ -77,11 +77,11 @@ const MemberLayout = () => {
               key={item.path}
               to={item.path}
               onClick={() => setMenuOpen(false)}
-              className={`block px-4 py-2 rounded ${
+              className={`block px-4 py-2 rounded flex items-center ${
                 location.pathname === item.path ? 'bg-green-500 text-white' : 'hover:bg-green-100'
               }`}
             >
-              {item.label}
+              {item.icon} {item.label}
             </Link>
           ))}
           <button
@@ -91,12 +91,12 @@ const MemberLayout = () => {
             Logout
           </button>
           <div>
-          <button
-            onClick={handleDeleteAccount}
-            className="mt-2 text-red-800 hover:underline"
-          >
-            Delete Account
-          </button>
+            <button
+              onClick={handleDeleteAccount}
+              className="mt-2 text-red-800 hover:underline"
+            >
+              Delete Account
+            </button>
           </div>
         </nav>
       )}
@@ -109,17 +109,17 @@ const MemberLayout = () => {
             <Link
               key={item.path}
               to={item.path}
-              className={`block px-4 py-2 rounded ${
+              className={`block px-4 py-2 rounded flex items-center ${
                 location.pathname === item.path ? 'bg-green-500 text-white' : 'hover:bg-green-600'
               }`}
             >
-              {item.label}
+              {item.icon} {item.label}
             </Link>
           ))}
         </nav>
         <button onClick={handleLogout} className="mt-6 text-red-400 hover:underline">Logout</button>
         <div>
-        <button onClick={handleDeleteAccount} className="mt-2 text-red-200 hover:underline">Delete Account</button>
+          <button onClick={handleDeleteAccount} className="mt-2 text-red-200 hover:underline">Delete Account</button>
         </div>
       </aside>
 

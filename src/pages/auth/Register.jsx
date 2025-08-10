@@ -45,13 +45,19 @@ function Register() {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
+      // Save in Firestore with verified = false
+      await setDoc(doc(db, 'users', user.uid), {
+        email: user.email,
+        role: 'member',
+        createdAt: new Date(),
+        verified: false
+      });
+
       // Send verification email
       await sendEmailVerification(user);
 
-      // Don't store in Firestore yet — wait until verification
       setMessage('A verification link has been sent to your email. Please verify before logging in.');
 
-      // Clear inputs
       setEmail('');
       setPassword('');
       setConfirmPassword('');

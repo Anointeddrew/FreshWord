@@ -152,7 +152,7 @@ const fetchDailyScripture = async () => {
         </div>
       )}
 
-      <h1 className="text-2xl bg-green-700 text-white text-center rounded font-bold mb-4">Welcome, {fullName || 'Member'} 👋</h1>
+      <h1 className="text-2xl bg-white  text-center rounded font-bold mb-4">Welcome, {fullName || 'Member'} 👋</h1>
       {dailyVerse && (
   <div className="bg-yellow-100 border-l-4 border-yellow-600 p-4 mb-4 rounded shadow">
     <p className="text-sm text-gray-700">📖 <strong>{dailyVerse.verse}</strong></p>
@@ -162,17 +162,17 @@ const fetchDailyScripture = async () => {
 
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-green-200 p-4 shadow rounded-lg">
+        <div className="bg-white p-4 shadow border border-gray-200 rounded-lg">
           <p className="text-gray-600 font-bold">Profile Completion</p>
           <p className="text-xl font-bold">{profileCompletion}%</p>
           <Link to="/member/profile" className="text-blue-600 text-sm">Update Profile</Link>
         </div>
-        <div className="bg-green-200 p-4 shadow rounded-lg">
+        <div className="bg-white p-4 shadow border border-gray-200 rounded-lg">
           <p className="text-gray-600 font-bold">Attendance</p>
           <p className="text-xl font-bold">{attendanceCount}</p>
           <Link to="/member/attendance" className="text-blue-600 text-sm">View Attendance</Link>
         </div>
-        <div className="bg-green-200 p-4 shadow rounded-lg">
+        <div className="bg-white p-4 shadow border border-gray-200 rounded-lg">
           <p className="text-gray-600 font-bold">Total Giving</p>
           <p className="text-xl font-bold">₦{totalGiving.toLocaleString()}</p>
           <Link to="/member/giving" className="text-blue-600 text-sm">View Giving</Link>
@@ -197,11 +197,11 @@ const fetchDailyScripture = async () => {
 
       {/* Announcements */}
       <div className="mt-10">
-        <h2 className="text-xl text-green-700 font-bold mb-4 text-center">Announcement for {department || 'your department'}</h2>
+        <h2 className="text-xl font-bold mb-4 text-center">Announcement for {department || 'your department'}</h2>
         {loadingAnnouncements ? (
           <p>Loading announcements...</p>
         ) : announcements.length === 0 ? (
-          <p>No announcements for your department.</p>
+          <p>No announcements available.</p>
         ) : (
           <div className="space-y-4">
             {announcements.map((a) => (
