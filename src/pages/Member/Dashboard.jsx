@@ -82,7 +82,8 @@ useEffect(() => {
       // Real-time giving updates
       const givingQuery = query(
         collection(db, 'giving'),
-        where('uid', '==', auth.currentUser.uid)
+        where('uid', '==', auth.currentUser.uid),
+        where('approvedStatus', '==', 'approved')
       );
       unsubscribeGiving = onSnapshot(givingQuery, (snapshot) => {
         const total = snapshot.docs.reduce((sum, doc) => sum + (doc.data().amount || 0), 0);

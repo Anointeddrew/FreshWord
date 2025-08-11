@@ -4,6 +4,7 @@ import {
   collection,
   getDocs,
   query,
+  where,
   orderBy,
   deleteDoc,
   doc
@@ -14,7 +15,11 @@ function AdminGiving() {
   const [users, setUsers] = useState({});
 
   const fetchData = async () => {
-    const q = query(collection(db, 'giving'), orderBy('date', 'desc'));
+    const q = query(
+      collection(db, 'giving'),
+      where('approvalStatus', '==', 'approved'), // ✅ Only approved
+      orderBy('date', 'desc')
+    );
     const snap = await getDocs(q);
     const givingData = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     setRecords(givingData);
@@ -49,7 +54,9 @@ function AdminGiving() {
 
   return (
     <div className="p-6 bg-white rounded shadow-md">
-      <h1 className="text-2xl text-center bg-green-700 rounded text-white py-2 font-bold mb-4">Giving Records</h1>
+      <h1 className="text-2xl text-center bg-green-700 rounded text-white py-2 font-bold mb-4">
+        Giving Records (Approved Only)
+      </h1>
 
       <div className="mb-4 text-center">
         <p className="text-lg">
@@ -89,7 +96,9 @@ function AdminGiving() {
             ))}
             {records.length === 0 && (
               <tr>
-                <td colSpan="6" className="p-4 text-center text-gray-500">No giving records found.</td>
+                <td colSpan="6" className="p-4 text-center text-gray-500">
+                  No approved giving records found.
+                </td>
               </tr>
             )}
           </tbody>

@@ -24,10 +24,14 @@ function AdminDashboard() {
       );
       setTodayAttendance(attendanceSnap.size);
 
-      // Total giving
-      const givingSnap = await getDocs(collection(db, 'giving'));
+      // Approved giving
+      const givingSnap = await getDocs(
+  query(collection(db, 'giving'), where('approvalStatus', '==', 'approved'))
+      );
+
       const total = givingSnap.docs.reduce((sum, doc) => sum + doc.data().amount, 0);
       setTotalGiving(total);
+      
     };
 
     fetchStats();
