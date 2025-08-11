@@ -23,6 +23,7 @@ const navItems = [
   { label: 'First Timers', path: '/admin/first-timers', icon: <FaUserPlus /> },
   { label: 'Department Approval', path: '/admin/department-approval', icon: <FaUsers /> }, // New item for department approval
   { label: 'Announcements', path: '/admin/announcements', icon: <FaBullhorn /> },
+  { label: 'Offering Confirmation', path: '/admin/OfferingConfirmation', icon: <FaHandHoldingUsd /> },
   { label: 'Events', path: '/admin/events', icon: <FaCalendarAlt /> },
   { label: 'Testimonies/Suggestions', path: '/admin/suggestion', icon: <FaCommentDots /> },
   { label: 'Giving', path: '/admin/giving', icon: <FaHandHoldingUsd /> },

@@ -14,14 +14,18 @@ function Giving() {
 
   const submitGiving = async () => {
     if (!amount) return alert("Enter an amount");
+
     await addDoc(collection(db, 'giving'), {
       uid: auth.currentUser.uid,
       amount: parseFloat(amount),
       date: Timestamp.now(),
-      purpose
+      purpose,
+      approvalStatus: 'pending' // 🔹 New field for admin approval
     });
+
     setAmount('');
     fetchGiving();
+    alert("Your giving has been submitted and is pending admin approval.");
   };
 
   const fetchGiving = async () => {
@@ -40,13 +44,17 @@ function Giving() {
   };
 
   const handleDelete = async (id) => {
-    const confirm = window.confirm("Delete this record?");
-    if (!confirm) return;
+    const confirmDelete = window.confirm("Delete this record?");
+    if (!confirmDelete) return;
     await deleteDoc(doc(db, 'giving', id));
     setHistory(history.filter(item => item.id !== id));
   };
 
   const handleEdit = (item) => {
+    if (item.approvalStatus === 'approved') {
+      alert("Approved givings cannot be edited.");
+      return;
+    }
     setEditId(item.id);
     setEditData({ amount: item.amount, purpose: item.purpose });
   };
@@ -57,6 +65,7 @@ function Giving() {
     await updateDoc(ref, {
       amount: parseFloat(editData.amount),
       purpose: editData.purpose,
+      approvalStatus: 'pending' // reset to pending if edited
     });
     setEditId(null);
     fetchGiving();
@@ -148,6 +157,9 @@ function Giving() {
               <>
                 <p className="text-gray-800">
                   ₦{g.amount} - {g.purpose || 'General'} - {g.date?.toDate().toDateString()}
+                </p>
+                <p className={`text-sm font-semibold ${g.approvalStatus === 'approved' ? 'text-green-600' : 'text-yellow-600'}`}>
+                  {g.approvalStatus === 'approved' ? 'Approved' : 'Pending Approval'}
                 </p>
                 <div className="mt-2 sm:mt-0 flex gap-2 text-sm">
                   <button onClick={() => handleEdit(g)} className="text-blue-600 hover:underline">
