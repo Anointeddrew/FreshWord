@@ -21,14 +21,15 @@ const navItems = [
   { label: 'Users', path: '/admin/users', icon: <FaUsers /> },
   { label: 'Attendance', path: '/admin/attendance', icon: <FaClipboardCheck /> },
   { label: 'First Timers', path: '/admin/first-timers', icon: <FaUserPlus /> },
-  { label: 'Messaging', path: '/admin/messaging', icon: <FaEnvelope /> },
+  { label: 'Department Approval', path: '/admin/department-approval', icon: <FaUsers /> }, // New item for department approval
   { label: 'Announcements', path: '/admin/announcements', icon: <FaBullhorn /> },
   { label: 'Events', path: '/admin/events', icon: <FaCalendarAlt /> },
   { label: 'Testimonies/Suggestions', path: '/admin/suggestion', icon: <FaCommentDots /> },
-  { label: 'Settings', path: '/admin/settings', icon: <FaCog /> },
-  { label: 'Social Links', path: '/admin/social-links', icon: <FaLink /> },
   { label: 'Giving', path: '/admin/giving', icon: <FaHandHoldingUsd /> },
-  { label: 'Department Approval', path: '/admin/department-approval', icon: <FaUsers /> } // New item for department approval
+  { label: 'Messaging', path: '/admin/messaging', icon: <FaEnvelope /> },
+  { label: 'Social Links', path: '/admin/social-links', icon: <FaLink /> },
+  { label: 'Settings', path: '/admin/settings', icon: <FaCog /> },
+  
 ];
 
 const AdminLayout = () => {
