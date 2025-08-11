@@ -117,7 +117,7 @@ function AdminEvents() {
 
   return (
     <div className="p-6 max-w-2xl mx-auto bg-white rounded shadow-md">
-      <h1 className="text-2xl text-center bg-green-700 rounded text-white font-bold mb-4">{editingId ? 'Edit Event' : 'Create Event'}</h1>
+      <h1 className="text-2xl text-center rounded font-bold mb-4">{editingId ? 'Edit Event' : 'Create Event'}</h1>
 
       <form onSubmit={handleSubmit} className="space-y-4 max-w-xl bg-green-200 p-4 rounded shadow">
         <input

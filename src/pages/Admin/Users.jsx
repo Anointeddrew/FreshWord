@@ -64,7 +64,7 @@ function Users() {
 
   return (
     <div className="p-6 bg-white rounded shadow-md">
-      <h1 className="text-2xl text-center bg-green-700 rounded text-white py-2 font-bold mb-4">User Management</h1>
+      <h1 className="text-2xl text-center rounded py-2 font-bold mb-4">User Management</h1>
 
       <input
         type="text"

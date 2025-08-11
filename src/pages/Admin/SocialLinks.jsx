@@ -59,7 +59,7 @@ function AdminSocialLinks() {
 
   return (
     <div className="p-6 max-w-3xl mx-auto bg-white rounded shadow-md">
-      <h2 className="text-xl font-bold mb-4 text-center bg-green-700 text-white rounded py-2">
+      <h2 className="text-xl font-bold mb-4 text-center rounded py-2">
         Update Church Social Media Links
       </h2>
 

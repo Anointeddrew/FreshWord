@@ -71,7 +71,7 @@ function AdminMessaging() {
 
   return (
     <div className="p-6 bg-white rounded shadow-md">
-      <h1 className="text-2xl font-bold text-center bg-green-700 rounded text-white py-2 mb-4">Send Message</h1>
+      <h1 className="text-2xl font-bold text-center rounded py-2 mb-4">Send Message</h1>
 
       <form onSubmit={handleSend} className="bg-white p-4 rounded shadow space-y-4 max-w-xl mx-auto">
         <input
@@ -99,11 +99,11 @@ function AdminMessaging() {
           </select>
         </div>
 
-        <button type="submit" className="w-full bg-green-700 text-white py-2 rounded hover:bg-green-600">Send Message</button>
+        <button type="submit" className="w-full bg-green-700 text-white py-2 rounded hover:bg-green-600">Send</button>
       </form>
 
       <div className="mt-8">
-        <h2 className="text-xl text-green-700 font-bold mb-4">Recent Messages</h2>
+        <h2 className="text-xl font-bold mb-4">Recent Messages</h2>
         <div className="space-y-4">
           {sentMessages.map((msg) => (
             <div key={msg.id} className="bg-green-200 p-4 rounded shadow">

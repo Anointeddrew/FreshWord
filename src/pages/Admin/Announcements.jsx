@@ -82,7 +82,7 @@ function AdminAnnouncement() {
 
   return (
     <div className="p-2 max-w-2xl mx-auto bg-white rounded shadow-md">
-      <h1 className="text-2xl text-center bg-green-700 rounded text-white font-bold mb-4">{editId ? 'Edit Announcement' : 'Create Announcement'}</h1>
+      <h1 className="text-2xl text-center rounded font-bold mb-4">{editId ? 'Edit Announcement' : 'Create Announcement'}</h1>
 
       <form onSubmit={handleSubmit} className="bg-green-200 p-4 rounded shadow max-w-xl space-y-4">
         <input
@@ -122,7 +122,7 @@ function AdminAnnouncement() {
       </form>
 
       <div className="mt-10">
-        <h2 className="text-xl text-green-700 text-center font-bold mb-4">Recent Announcements</h2>
+        <h2 className="text-xl text-center font-bold mb-4">Recent Announcements</h2>
         <div className="space-y-4">
           {announcements.map((a) => (
             <div key={a.id} className="bg-green-200 p-4 rounded shadow relative">

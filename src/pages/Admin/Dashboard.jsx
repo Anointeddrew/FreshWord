@@ -35,22 +35,22 @@ function AdminDashboard() {
 
   return (
     <div className="p-2 max-w-2xl mx-auto bg-white rounded shadow-md">
-      <h1 className="text-2xl text-center bg-green-700 rounded text-white font-bold mb-6">Admin Dashboard</h1>
+      <h1 className="text-2xl text-center  rounded font-bold mb-6">Admin</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-green-200 p-4 rounded shadow">
+        <div className="p-4 border border-gray-200 rounded shadow">
           <p className="text-black font-bold">Total Members</p>
           <p className="text-2xl font-semibold">{memberCount}</p>
           <Link to="/admin/users" className="text-blue-600 text-sm">Manage Members</Link>
         </div>
 
-        <div className="bg-green-200 p-4 rounded shadow">
+        <div className="p-4 border border-gray-200 rounded shadow">
           <p className="text-black font-bold">Today's Attendance</p>
           <p className="text-2xl font-semibold">{todayAttendance}</p>
           <Link to="/admin/attendance" className="text-blue-600 text-sm">View Attendance</Link>
         </div>
 
-        <div className="bg-green-200 p-4 rounded shadow">
+        <div className="p-4 border border-gray-200 rounded shadow">
           <p className="text-black font-bold">Total Giving</p>
           <p className="text-2xl font-semibold">₦{totalGiving.toLocaleString()}</p>
           <Link to="/admin/giving" className="text-blue-600 text-sm">Giving Records</Link>

@@ -45,7 +45,7 @@ function AttendanceAdmin() {
 
   return (
     <div className="p-6 max-w-4xl mx-auto bg-white rounded shadow-md">
-      <h1 className="text-2xl text-center bg-green-700 rounded text-white font-bold mb-4">
+      <h1 className="text-2xl text-center rounded font-bold mb-4">
         Recent Attendance
       </h1>
 
