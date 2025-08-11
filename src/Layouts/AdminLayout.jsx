@@ -28,6 +28,7 @@ const navItems = [
   { label: 'Settings', path: '/admin/settings', icon: <FaCog /> },
   { label: 'Social Links', path: '/admin/social-links', icon: <FaLink /> },
   { label: 'Giving', path: '/admin/giving', icon: <FaHandHoldingUsd /> },
+  { label: 'Department Approval', path: '/admin/department-approval', icon: <FaUsers /> } // New item for department approval
 ];
 
 const AdminLayout = () => {

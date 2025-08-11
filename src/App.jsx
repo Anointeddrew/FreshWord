@@ -24,6 +24,7 @@ import ProtectedRoute from './Routes/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
 import FirstTimerForm from './pages/FirstTimerForm';
 import AdminFirstTimers from './pages/Admin/FirstTimers';
+import AdminDepartmentApproval from './pages/Admin/DepartmentApproval';
 
 function App() {
   return (
@@ -52,6 +53,7 @@ function App() {
             <Route path="settings" element={<AdminSettings />} />
             <Route path="social-links" element={<AdminSocialLinks />} />
             <Route path="first-timers" element={<AdminFirstTimers />} />
+            <Route path="department-approval" element={<AdminDepartmentApproval />} />
           </Route>
 
           {/* Member Protected Routes */}
